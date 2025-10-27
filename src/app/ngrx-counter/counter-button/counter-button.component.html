@@ -1,5 +1,13 @@
-<div class="counter-buttons">
-<button  type="button" class="btn btn-success" (click)="increment()">Increment</button>
-<button type="button" class="btn btn-success" (click)="decrement()">Decrement</button>
-<button type="button" class="btn btn-success" (click)="reset()">Reset</button>
+<div class="counter-buttons d-flex justify-content-center gap-3 mt-4 flex-wrap">
+  <button type="button" class="btn btn-success px-4" (click)="increment()">
+    Increment
+  </button>
+
+  <button type="button" class="btn btn-warning px-4" (click)="decrement()">
+    Decrement
+  </button>
+
+  <button type="button" class="btn btn-danger px-4" (click)="reset()">
+    Reset
+  </button>
 </div>

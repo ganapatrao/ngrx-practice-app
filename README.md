@@ -18,3 +18,8 @@ in app.module its
  imports: [BrowserModule, StoreModule.forRoot({ count: counterReducer })],
  >
 
+
+
+chech we passed props
+we created interface for the state
+how we pass from props and how to we get check-- we have used action
