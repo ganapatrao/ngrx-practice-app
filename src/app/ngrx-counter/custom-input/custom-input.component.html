@@ -1,8 +1,15 @@
 
 
+<div class="d-flex justify-content-center p-3">
+  <button
+    class="btn btn-primary d-flex align-items-center"
+    (click)="onToggle()">
+    Toggle Input {{ (showinput$ | async) ? '-' : '+' }}
+  </button>
+</div>
 
-
-<div class="cust-input d-flex align-items-center gap-2 p-3 bg-light rounded shadow-sm">
+@if (showinput$ | async) {
+<div class="cust-input d-flex align-items-center gap-2 p-3 bg-light rounded shadow-sm" >
       <input
         type="text"
         class="form-control w-auto"
@@ -13,3 +20,4 @@
         Increment by
       </button>
     </div>
+  }

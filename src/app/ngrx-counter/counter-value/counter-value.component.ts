@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import { CounterState } from '../counter.state';
 
 @Component({
@@ -17,8 +17,8 @@ export class CounterValueComponent {
 
   // constructor(private store: Store<{ count: { counter: number } }>) {
     constructor(private store: Store<{ count: CounterState }>) { //2 replace type with the interface
-    
-    this.counter$ = this.store.select((state) => state.count.counter);
+
+    this.counter$ = this.store.select((state) => state.count.counter).pipe(tap(val => console.log("counter value", val)));
 
     // or manual way
 //#################without selector
