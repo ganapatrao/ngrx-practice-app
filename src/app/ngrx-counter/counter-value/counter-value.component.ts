@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { Store } from '@ngrx/store';
 import { Observable, tap } from 'rxjs';
 import { CounterState } from '../counter.state';
+import { getCounter } from '../counter.selector';
 
 @Component({
   selector: 'app-counter-value',
@@ -18,8 +19,14 @@ export class CounterValueComponent {
   // constructor(private store: Store<{ count: { counter: number } }>) {
     constructor(private store: Store<{ count: CounterState }>) { //2 replace type with the interface
 
-    this.counter$ = this.store.select((state) => state.count.counter).pipe(tap(val => console.log("counter value", val)));
-
+   // this.counter$ = this.store.select((state) => state.count.counter).pipe(tap(val => console.log("counter value", val)));
+// with key 
+// this.count$ = this.store.select('count');//    
+//    <div *ngIf="count$ | async as count">
+//   {{ count.counter }}
+//   {{ count.toggle }}
+// </div>
+this.counter$ = this.store.select(getCounter)// this will give us a boolean value
     // or manual way
 //#################without selector
 // select the counter value from the 'count' slice registered in provideStore

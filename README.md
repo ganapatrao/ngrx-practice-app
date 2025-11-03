@@ -23,3 +23,28 @@ in app.module its
 chech we passed props
 we created interface for the state
 how we pass from props and how to we get check-- we have used action
+
+
+// used selector //createFeatureSelector , creteselector
+const getCounterState = createFeatureSelector<CounterState>('count'); // we can use the key and access the state
+
+export const getCounter = createSelector(
+    getCounterState,
+    (state: CounterState) => state.counter
+);  
+
+export const getToggle = createSelector(
+    getCounterState,
+    (state: CounterState) => state.toggle
+);
+
+//  constructor(private store: Store<{count:CounterState}>) { 
+    // this.showinput$ = this.store.select(state => state.count.toggle)
+    //with selector
+    this.showinput$ = this.store.select(getToggle)
+  }
+
+      constructor(private store: Store<{ count: CounterState }>) { 
+   // this.counter$ = this.store.select((state) => state.count.counter)
+this.counter$ = this.store.select(getCounter)
+      }

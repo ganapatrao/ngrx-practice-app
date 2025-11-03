@@ -5,6 +5,7 @@ import { Store } from '@ngrx/store';
 import { customInput,toggle } from '../counter.action';
 import { Observable, tap } from 'rxjs';
 import { CommonModule } from '@angular/common';
+import { getToggle } from '../counter.selector';
 
 
 @Component({
@@ -23,7 +24,9 @@ export class CustomInputComponent {
 
 
   constructor(private store: Store<{count:CounterState}>) { 
-     this.showinput$ = this.store.select(state => state.count.toggle).pipe(tap(val => console.log("custom input")));
+    // this.showinput$ = this.store.select(state => state.count.toggle).pipe(tap(val => console.log("custom input")));
+    //with selector
+    this.showinput$ = this.store.select(getToggle)
   }
 
   //ngOnInit(): void {
