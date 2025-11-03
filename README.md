@@ -48,3 +48,6 @@ export const getToggle = createSelector(
    // this.counter$ = this.store.select((state) => state.count.counter)
 this.counter$ = this.store.select(getCounter)
       }
+
+      // install redux tool extensions
+      https://chromewebstore.google.com/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd?hl=en&pli=1

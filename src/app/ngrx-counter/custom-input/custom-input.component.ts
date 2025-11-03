@@ -18,15 +18,15 @@ import { getToggle } from '../counter.selector';
 export class CustomInputComponent {
   name :string = ''
 
-  showinput$!: Observable<boolean>;
+  showinput$: Observable<boolean> | null =null;
 
 
 
 
-  constructor(private store: Store<{count:CounterState}>) { 
+  constructor(private store: Store<{count:CounterState}>) {  
     // this.showinput$ = this.store.select(state => state.count.toggle).pipe(tap(val => console.log("custom input")));
     //with selector
-    this.showinput$ = this.store.select(getToggle)
+    this.showinput$ = this.store.select(getToggle) // can be added in ngonint too
   }
 
   //ngOnInit(): void {
