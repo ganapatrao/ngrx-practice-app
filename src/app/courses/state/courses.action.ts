@@ -1,5 +1,8 @@
-import { createAction } from "@ngrx/store";
+import { createAction, props } from "@ngrx/store";
 import { ICourseModel } from "../course.model";
 
 export const getCourses = createAction( '[Courses] Get Courses');
-export const getCoursesSuccess = createAction( '[Courses] Get Courses Success', (courses: ICourseModel[]) => ({ courses }));
+export const showAddForm = createAction( '[Courses] Show Form',props<{create:boolean}>() );
+
+export const addCourse = createAction( '[Courses] Add Course',props<{courseData:ICourseModel}>() );
+export const editCourse = createAction( '[Courses] Edit Course',props<{edit:boolean}>() );

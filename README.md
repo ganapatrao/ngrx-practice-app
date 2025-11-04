@@ -51,3 +51,7 @@ this.counter$ = this.store.select(getCounter)
 
       // install redux tool extensions
       https://chromewebstore.google.com/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd?hl=en&pli=1
+
+
+      //angular material
+      ng add @angular/material

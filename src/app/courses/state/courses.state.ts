@@ -2,6 +2,8 @@ import { ICourseModel } from '../course.model';
 
 export interface IcourseState {
   courses: ICourseModel[];
+  showCourseForm: boolean;
+  editForm: boolean;
 }
 
 export const initialCourseState: IcourseState = { courses: [{
@@ -23,4 +25,7 @@ export const initialCourseState: IcourseState = { courses: [{
   {
     name: 'Frontend Architecture',
     title: 'Design Clean, Scalable, and Maintainable UI Projects'
-  }] };
+  }],
+  showCourseForm: false,
+  editForm: false
+}

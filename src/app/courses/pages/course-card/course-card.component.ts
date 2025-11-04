@@ -1,5 +1,9 @@
 import { Component, Input } from '@angular/core';
 import { ICourseModel } from '../../course.model';
+import { Store } from '@ngrx/store';
+import { IcourseState } from '../../state/courses.state';
+import { editCourse } from '../../state/courses.action';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-course-card',
@@ -10,6 +14,13 @@ import { ICourseModel } from '../../course.model';
 })
 export class CourseCardComponent {
   @Input() course!: ICourseModel;
+
+
+  constructor(private store:Store<{ course:IcourseState }>) { }
+
+  onEdit() {
+    this.store.dispatch(editCourse({ edit: true }));
+  }
 
 }
 

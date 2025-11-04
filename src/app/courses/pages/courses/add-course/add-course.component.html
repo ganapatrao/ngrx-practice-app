@@ -1,0 +1,43 @@
+<div class="dialog-header">
+  <h2 mat-dialog-title class="dialog-title">Create Course</h2>
+  <button mat-icon-button class="close-btn" (click)="onCancel()" aria-label="Close">
+    <mat-icon>close</mat-icon>
+  </button>
+</div>
+
+<mat-dialog-content>
+    <div>{{editMode ? 'Edit Course' : 'Create New Course'}}</div>
+
+  <form [formGroup]="courseForm" class="course-form">
+    <mat-form-field appearance="outline" class="w-full">
+      <mat-label>Course Name</mat-label>
+      <input matInput formControlName="name" />
+      <mat-error *ngIf="courseForm.get('name')?.touched">
+    <ng-container *ngIf="courseForm.get('name')?.hasError('required')">
+      Course name is required.
+    </ng-container>
+    <ng-container *ngIf="courseForm.get('name')?.hasError('minlength')">
+      Course name must be at least 10 characters long.
+    </ng-container>
+  </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="w-full">
+      <mat-label>Course Title</mat-label>
+      <input matInput formControlName="title" />
+      <mat-error *ngIf="courseForm.get('title')?.touched">
+    <ng-container *ngIf="courseForm.get('title')?.hasError('required')">
+      Course title is required.
+    </ng-container>
+    <ng-container *ngIf="courseForm.get('title')?.hasError('minlength')">
+      Course title must be at least 10 characters long.
+    </ng-container>
+  </mat-error>
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="onCancel()">Cancel</button>
+  <button mat-flat-button color="primary" (click)="onSubmit()">Save</button>
+</mat-dialog-actions>

@@ -1,0 +1,32 @@
+.dialog-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-right: 8px;
+  margin-bottom: 8px;
+}
+
+.dialog-title {
+  margin: 0;
+  font-weight: 600;
+  color: #3f51b5;
+}
+
+.close-btn {
+  color: #666;
+  transition: color 0.2s ease;
+}
+
+.close-btn:hover {
+  color: #f44336;
+}
+
+.course-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+mat-dialog-content {
+  min-width: 350px;
+}

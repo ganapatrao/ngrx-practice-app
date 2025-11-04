@@ -11,6 +11,10 @@
         [(ngModel)]="searchText"
       />
     </div>
+
+    <button class="btn btn-success" (click)="createNewForm()">
+      create New Course
+    </button>
   </div>
   
   <div class="courses-list mt-3" *ngIf="$courses | async as courses">

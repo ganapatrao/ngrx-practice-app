@@ -7,3 +7,14 @@ export const selectCourses = createSelector(
     courseSelector,
     (state:IcourseState) => state.courses
 );
+
+
+export const showFormSelector = createSelector(
+    courseSelector,
+    (state:IcourseState) => state.showCourseForm
+);  
+
+export const editFormSelector = createSelector(
+    courseSelector,
+    (state:IcourseState) => state.editForm
+);
