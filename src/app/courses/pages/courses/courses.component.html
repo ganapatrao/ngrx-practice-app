@@ -1,0 +1,22 @@
+
+<div class="container mt-4">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="fw-semibold mb-0 text-primary">Courses</h2>
+
+    <div class="search-box">
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Search courses..."
+        [(ngModel)]="searchText"
+      />
+    </div>
+  </div>
+  
+  <div class="courses-list mt-3" *ngIf="$courses | async as courses">
+    <ng-container *ngFor="let course of courses">
+      <app-course-card [course]="course"></app-course-card>
+    </ng-container>
+  </div>
+</div>
+

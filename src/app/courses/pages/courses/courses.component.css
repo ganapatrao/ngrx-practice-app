@@ -1,0 +1,13 @@
+/* Layout for course cards: horizontal row, wrap on small screens */
+.courses-list {
+	display: flex;
+	gap: 16px;
+	flex-wrap: wrap;
+	align-items: flex-start;
+}
+
+.courses-list app-course-card {
+	/* let the card keep its defined width and margins */
+	flex: 0 0 auto;
+}
+

@@ -8,5 +8,9 @@ export const routes: Routes = [
     {
         path: 'ngrx-counter',
         loadComponent: () => import('./ngrx-counter/ngrx-counter.component').then(m => m.NgrxCounterComponent)
+    },
+       {
+        path: 'ngrx-course',
+        loadComponent: () => import('./courses/pages/courses/courses.component').then(m => m.CoursesComponent)
     }
 ];
