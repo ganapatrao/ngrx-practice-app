@@ -6,3 +6,5 @@ export const showAddForm = createAction( '[Courses] Show Form',props<{create:boo
 
 export const addCourse = createAction( '[Courses] Add Course',props<{courseData:ICourseModel}>() );
 export const editCourse = createAction( '[Courses] Edit Course',props<{edit:boolean}>() );
+export const setSelectedCourses = createAction( '[Courses] Select Courses', props<{ course: ICourseModel }>());
+export const updateCourse = createAction( '[Courses] Update Course', props<{ courseData: ICourseModel }>());

@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { ICourseModel } from '../../course.model';
 import { Store } from '@ngrx/store';
 import { IcourseState } from '../../state/courses.state';
-import { editCourse } from '../../state/courses.action';
+import { editCourse, setSelectedCourses, showAddForm } from '../../state/courses.action';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -20,6 +20,9 @@ export class CourseCardComponent {
 
   onEdit() {
     this.store.dispatch(editCourse({ edit: true }));
+     this.store.dispatch(showAddForm({ create: true }));
+     this.store.dispatch(setSelectedCourses({ course: this.course }));
+      
   }
 
 }

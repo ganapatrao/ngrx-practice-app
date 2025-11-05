@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 import { ICourseModel } from '../../course.model';
 import { editFormSelector, selectCourses, showFormSelector } from '../../state/courses.selector';
 import { AsyncPipe, NgFor, NgIf } from '@angular/common';
-import { addCourse, showAddForm } from '../../state/courses.action';
+import { addCourse, editCourse, showAddForm } from '../../state/courses.action';
 import { AddCourseComponent } from './add-course/add-course.component';
 import { MatDialog } from '@angular/material/dialog';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop'; //
@@ -22,7 +22,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop'; //
 export class CoursesComponent implements OnInit {
   searchText: string = '';
   $courses !: Observable<ICourseModel[]>;
-  $createNewForm !: Observable<boolean>;
+  $showFormModal !: Observable<boolean>;
   $editForm !: Observable<boolean>
     private destroyRef = inject(DestroyRef);
 
@@ -33,42 +33,37 @@ export class CoursesComponent implements OnInit {
   constructor(private store:Store<{ course:IcourseState }>, private dialog:MatDialog) { }
 
   ngOnInit(): void {
-    //this.$courses= this.store.select(state => state.course.courses);
-    this.$courses = this.store.select(selectCourses)
-    this.$createNewForm = this.store.select(showFormSelector) //get showform
-    this.$editForm = this.store.select(editFormSelector)
-
+    this.$courses = this.store.select(selectCourses);
+    this.$showFormModal = this.store.select(showFormSelector);
+    this.$editForm = this.store.select(editFormSelector);
+    
+    // Subscribe to form changes and handle modal
+    this.$showFormModal.pipe(
+      takeUntilDestroyed(this.destroyRef)
+    ).subscribe((show) => {
+      if (show) {
+        this.handleCreateCourseModal();
+      }
+    });
   }
 
 
-  private handleCreateCourseModal(): void {
-  this.$createNewForm
-    .pipe(takeUntilDestroyed(this.destroyRef))
-    .subscribe((show) => {
-      if (show) {
-        const dialogRef = this.dialog.open(AddCourseComponent, {
-          width: '450px',
-          disableClose: true,
-        });
-
-        dialogRef.afterClosed().subscribe((result:any) => {
-          this.store.dispatch(showAddForm({ create: false }));
-
-     if (result?.action === 'save') {
-      this.store.dispatch(addCourse({ courseData: result.data }));           
-            // Example: Dispatch action to save new course to store or API
-            // this.store.dispatch(addCourse({ course: result.data }));
-          } else if (result?.action === 'cancel') {
-            console.log('❌ Course creation canceled by user');
-          }
-        });
-      }
+   handleCreateCourseModal(): void {
+    const dialogRef = this.dialog.open(AddCourseComponent, {
+      width: '450px',
+      disableClose: true,
     });
-}
 
-  createNewForm(){
+    dialogRef.afterClosed()
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(() => {
+        this.store.dispatch(showAddForm({ create: false }));
+      });
+  }
+
+  createNewForm(): void {
     this.store.dispatch(showAddForm({ create: true }));
-     this.handleCreateCourseModal();
+    this.store.dispatch(editCourse({ edit: false }));
   }
 
 }

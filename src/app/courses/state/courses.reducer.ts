@@ -1,5 +1,5 @@
 import { createReducer, on } from "@ngrx/store";
-import { getCourses, showAddForm, addCourse, editCourse } from "./courses.action";
+import { getCourses, showAddForm, addCourse, editCourse, setSelectedCourses, updateCourse } from "./courses.action";
 import { initialCourseState } from "./courses.state";
 
 export const coursesReducer = createReducer(
@@ -7,5 +7,12 @@ export const coursesReducer = createReducer(
     on(getCourses, (state) => (state)),
     on(showAddForm, (state,action) => ({ ...state, showCourseForm: action.create })),
     on(addCourse, (state, action) => ({ ...state, courses: [...state.courses, action.courseData] })),
-    on(editCourse,(state,action)=>({...state,editForm:action.edit}))
+    on(editCourse,(state,action)=>({...state,editForm:action.edit})),
+    on(setSelectedCourses,(state,action)=>({...state,selectedCourse:action.course})),
+    on(updateCourse, (state, action) => {
+        const updatedCourses = state.courses.map(course =>
+            course.id === action.courseData.id ? action.courseData : course
+        );
+        return { ...state, courses: updatedCourses };
+    })
 );
