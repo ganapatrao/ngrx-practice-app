@@ -12,5 +12,11 @@ export const routes: Routes = [
        {
         path: 'ngrx-course',
         loadComponent: () => import('./courses/pages/courses/courses.component').then(m => m.CoursesComponent)
+    },
+    //load chil;dren for aut
+    {
+        path: 'auth',
+        loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule)
     }
+
 ];

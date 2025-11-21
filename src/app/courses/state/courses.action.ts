@@ -8,3 +8,4 @@ export const addCourse = createAction( '[Courses] Add Course',props<{courseData:
 export const editCourse = createAction( '[Courses] Edit Course',props<{edit:boolean}>() );
 export const setSelectedCourses = createAction( '[Courses] Select Courses', props<{ course: ICourseModel }>());
 export const updateCourse = createAction( '[Courses] Update Course', props<{ courseData: ICourseModel }>());
+export const deleteCourse = createAction( '[Courses] Delete Course', props<{ courseId: string }>());
