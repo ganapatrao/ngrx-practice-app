@@ -1,0 +1,18 @@
+<p>debounce-example works!</p>
+<input type="text" (input)="onsearch($event)">
+<button (click)="resetsearch()">reset search</button>
+<table>
+    <th>
+    <tr>
+        <td>name</td>
+        <td>version</td>
+    </tr>
+    <tbody>
+        <tr *ngFor="let data of records">
+            <td>{{data.name}}</td>
+            <td>{{data.version}}</td>
+        </tr>
+
+    </tbody>
+    </th>
+</table>

@@ -55,3 +55,7 @@ this.counter$ = this.store.select(getCounter)
 
       //angular material
       ng add @angular/material
+
+
+      //understand accordian
+      [style.display]="openedIndex==i?'block':'none'"
