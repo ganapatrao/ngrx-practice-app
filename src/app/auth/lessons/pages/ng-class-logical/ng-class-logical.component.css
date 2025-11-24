@@ -1,0 +1,22 @@
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+table{
+    border-collapse: collapse;
+    width: 100%;
+}
+
+
+.selected-student{
+    background-color: #24523d;
+}
+
+.odd{
+    background-color: #e68484;
+}
+.even{
+    background-color: #84c1e6;
+}

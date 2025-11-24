@@ -31,6 +31,10 @@ export const routes: Routes = [
         path:'practice-session/dropdown',
         loadComponent :()=>import('./auth/lessons/pages/drop-down/drop-down.component').then(m=>m.DropDownComponent)
     }
+    ,{
+        path:'practice-session/ngclass',
+        loadComponent :()=>import('./auth/lessons/pages/ng-class-logical/ng-class-logical.component').then(m=>m.NgClassLogicalComponent)
+    }
     
 
 ];

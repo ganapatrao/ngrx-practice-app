@@ -1,0 +1,30 @@
+<table style="border: 1px solid grey;">
+
+    <tr>
+    <th (click)="sortBy('name')">name</th>
+    <th (click)="sortBy('age')">age</th>
+    <th (click)="sortBy('grade')">grade</th>
+    </tr>
+    
+
+  <tbody>
+      <tr *ngFor="let item of studentsrecords; let i = index" [ngClass]="{'selected-student':selectedUserId ===item.id}" (click)="selectedUser(item.id)">
+    <!-- <tr *ngFor="let item of studentsrecords; let i = index" [ngClass]="{'selected-student':selectedUserId ===item.id, 'even': i % 2 === 0, 'odd': i % 2 === 1}" (click)="selectedUser(item.id)"> -->
+      <td>{{item.name}}</td><td>{{item.age}}</td><td>{{item.grade}}</td>
+
+    </tr>
+
+
+
+       
+    <!-- <tr *ngFor="let item of studentsrecords; let i = index" [ngClass]="{'selected-student':selectedUserId ===item.id, 'even': i % 2 === 0, 'odd': i % 2 === 1}" (click)="selectedUser(item.id)">
+      <td>{{item.name}}</td><td>{{item.age}}</td><td>{{item.grade}}</td>
+
+    </tr> -->
+
+    
+  </tbody>
+
+
+
+</table>
