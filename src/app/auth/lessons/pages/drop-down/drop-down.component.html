@@ -1,0 +1,9 @@
+<p>drop-down works!</p>
+
+<button style="border-radius: 14px;padding: 10px;width: 300px;" (click)="isShowDropDown = !isShowDropDown">{{selectedItem || "select item"}}</button>
+
+<ul *ngIf="isShowDropDown">
+    <li *ngFor="let item of items" (click)="selectItem(item)">
+        {{item}}
+    </li>
+</ul>

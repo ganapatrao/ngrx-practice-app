@@ -26,6 +26,10 @@ export const routes: Routes = [
         path:'practice-session/accordion',
         loadComponent: () => import('./auth/lessons/pages/accordian/accordian.component').then(m => m.AccordianComponent)
         
+    },
+    {
+        path:'practice-session/dropdown',
+        loadComponent :()=>import('./auth/lessons/pages/drop-down/drop-down.component').then(m=>m.DropDownComponent)
     }
     
 
