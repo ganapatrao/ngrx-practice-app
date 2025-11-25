@@ -38,7 +38,19 @@ export const routes: Routes = [
     {
         path:'practice-session/enum-colors',
         loadComponent :()=>import('./auth/lessons/pages/enum-color/enum-color.component').then(m=>m.EnumColorComponent)
+    },
+    {
+        path:'practice-session/accordian-basic',
+        loadComponent:()=> import('./auth/lessons/pages/accordian-basic/accordian-basic.component').then (m=>m.AccordianBasicComponent)
+
+    },
+    {
+        path:'practice-session/tool-tip',
+        loadComponent() {
+            return import('./auth/lessons/pages/tool-tip/tool-tip.component').then(m => m.ToolTipComponent)
+        },
     }
+    
     
 
 ];

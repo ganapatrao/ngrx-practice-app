@@ -1,0 +1,14 @@
+
+
+
+<div>
+    <div *ngFor="let item of studentsrecords;let i =index">
+
+        <button style="display: block; width:400px" (click)="selectedItem(i)">{{item.name}}</button>
+
+        <div style="display: flex;border: 1px solid grey;" *ngIf="selectedIndex === i">
+            <p style="padding: 20px;">{{item.age}}</p>
+            <p style="padding: 20px;">{{item.grade}}</p>
+        </div>
+    </div>
+</div>
