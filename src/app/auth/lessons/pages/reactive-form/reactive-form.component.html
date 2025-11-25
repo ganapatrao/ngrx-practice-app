@@ -1,0 +1,22 @@
+
+
+<form [formGroup]="userformdata" (ngSubmit)="onsubmit()">
+  <div>
+    <label>Name</label>
+    <input type="text" placeholder="enter name" formControlName="name">
+  </div>
+
+  <div formGroupName="address">
+    <label>City</label>
+    <input type="text" placeholder="city" formControlName="city">
+<div *ngIf="userformdata.get('name')?.errors?.['required']"></div>
+    
+    <label>State</label>
+    <input type="text" placeholder="state" formControlName="state">
+  </div>
+
+  <button type="submit">Submit</button>
+
+
+  <button (click)="onUpdate()">update</button>
+</form>

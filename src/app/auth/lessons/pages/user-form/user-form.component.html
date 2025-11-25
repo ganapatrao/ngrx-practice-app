@@ -1,0 +1,7 @@
+
+    <form #userform = "ngForm" (ngSubmit)="onsend(userform)" >
+        <input type="text" placeholder="enter name" [(ngModel)]="userdata.name" name = "name" required  minlength="3" #nameRef="ngModel">
+<div *ngIf="nameRef?.errors?.['required']"> name id required</div>
+<div *ngIf="nameRef?.errors?.['minlength']"> name should have more that 3 character</div>
+        <button  style="margin-left: 20px;" (click)="submitForm()" [disabled]="userform.invalid"> submit</button>
+    </form>

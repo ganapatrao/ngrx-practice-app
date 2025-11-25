@@ -49,7 +49,18 @@ export const routes: Routes = [
         loadComponent() {
             return import('./auth/lessons/pages/tool-tip/tool-tip.component').then(m => m.ToolTipComponent)
         },
-    }
+    },
+    {
+        path:'practice-session/templateform',
+        loadComponent() {
+            return import('./auth/lessons/pages/user-form/user-form.component').then(m => m.UserFormComponent)
+        },  
+    },
+{
+    path: 'practice-session/reactiveform',
+    loadComponent: () => import('./auth/lessons/pages/reactive-form/reactive-form.component').then(m => m.ReactiveFormComponent)
+}
+    
     
     
 

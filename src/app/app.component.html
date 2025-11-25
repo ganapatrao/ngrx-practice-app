@@ -3,13 +3,26 @@
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
   <div class="container-fluid">
     <a class="navbar-brand" href="#">Navbar</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarNav"
+      aria-controls="navbarNav"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" routerLink="/counter-input-output">counter-input-output</a>
+          <a
+            class="nav-link active"
+            aria-current="page"
+            routerLink="/counter-input-output"
+            >counter-input-output</a
+          >
         </li>
         <li class="nav-item">
           <a class="nav-link" routerLink="/ngrx-counter">ngrx-counter</a>
@@ -19,30 +32,76 @@
         </li>
 
         <li class="nav-item dropdown">
-  <a
-    class="nav-link dropdown-toggle"
-    href="#"
-    role="button"
-    data-bs-toggle="dropdown"
-    aria-expanded="false"
-  >
-    Practice Session
-  </a>
+          <a
+            class="nav-link dropdown-toggle"
+            href="#"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            Practice Session
+          </a>
 
-  <ul class="dropdown-menu">
+          <ul class="dropdown-menu">
+            <!-- Add your practice topics here -->
+            <li>
+              <a class="dropdown-item" routerLink="/practice-session/debouncing"
+                >Debouncing</a
+              >
+            </li>
+            <li>
+              <a class="dropdown-item" routerLink="/practice-session/accordion"
+                >Accordion</a
+              >
+            </li>
+            <li>
+              <a class="dropdown-item" routerLink="/practice-session/dropdown"
+                >DropDown</a
+              >
+            </li>
+            <li>
+              <a class="dropdown-item" routerLink="/practice-session/ngclass"
+                >ng class</a
+              >
+            </li>
+            <li>
+              <a
+                class="dropdown-item"
+                routerLink="/practice-session/enum-colors"
+                >enum colours</a
+              >
+            </li>
+            <li>
+              <a
+                class="dropdown-item"
+                routerLink="/practice-session/accordian-basic"
+                >accordian-basic</a
+              >
+            </li>
+            <li>
+              <a class="dropdown-item" routerLink="/practice-session/tool-tip"
+                >tool-tip</a
+              >
+            </li>
 
-    <!-- Add your practice topics here -->
-    <li><a class="dropdown-item" routerLink="/practice-session/debouncing">Debouncing</a></li>
-    <li><a class="dropdown-item" routerLink="/practice-session/accordion">Accordion</a></li>
-    <li><a class="dropdown-item" routerLink="/practice-session/dropdown">DropDown</a></li>
-     <li><a class="dropdown-item" routerLink="/practice-session/ngclass">ng class</a></li>
-    <li><a class="dropdown-item" routerLink="/practice-session/enum-colors">enum colours</a></li>
-        <li><a class="dropdown-item" routerLink="/practice-session/accordian-basic">accordian-basic</a></li>
-           <li><a class="dropdown-item" routerLink="/practice-session/tool-tip">tool-tip</a></li>
+            <li>
+              <a
+                class="dropdown-item"
+                routerLink="practice-session/templateform"
+                >templateForm</a
+              >
+            </li>
+            <li>
+              <a
+                class="dropdown-item"
+                routerLink="practice-session/reactiveform"
+                >reactive form</a
+              >
+            </li>
 
-    <!-- You can keep adding as you practice -->
-  </ul>
-</li>
+            <!-- You can keep adding as you practice -->
+          </ul>
+        </li>
         <li class="nav-item">
           <a class="nav-link disabled" aria-disabled="true">Disabled</a>
         </li>
@@ -59,9 +118,6 @@
       </ul>
     </div>
   </div>
-
-
-  
 </nav>
 
-  <router-outlet></router-outlet>
+<router-outlet></router-outlet>
