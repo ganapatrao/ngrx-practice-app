@@ -3,11 +3,13 @@ import { Component, Renderer2 } from '@angular/core';
 import { CustomToolTipDirective } from './custom-tool-tip.directive';
 import { HighlighterDirective } from './highlighter.directive';
 
+import { UppercasePipe } from '../uppercase.pipe';
+
 
 @Component({
   selector: 'app-tool-tip',
   standalone: true,
-  imports: [NgIf,CustomToolTipDirective,HighlighterDirective],
+  imports: [NgIf, CustomToolTipDirective, HighlighterDirective, UppercasePipe],
   templateUrl: './tool-tip.component.html',
   styleUrl: './tool-tip.component.css'
 })
