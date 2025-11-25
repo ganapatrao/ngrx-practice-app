@@ -34,6 +34,10 @@ export const routes: Routes = [
     ,{
         path:'practice-session/ngclass',
         loadComponent :()=>import('./auth/lessons/pages/ng-class-logical/ng-class-logical.component').then(m=>m.NgClassLogicalComponent)
+    },
+    {
+        path:'practice-session/enum-colors',
+        loadComponent :()=>import('./auth/lessons/pages/enum-color/enum-color.component').then(m=>m.EnumColorComponent)
     }
     
 
