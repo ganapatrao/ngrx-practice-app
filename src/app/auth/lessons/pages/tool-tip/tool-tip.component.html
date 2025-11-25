@@ -1,1 +1,16 @@
-<p>tool-tip works!</p>
+
+
+<button (mouseenter)="isHovered=true" (mouseleave)="isHovered=false" >Hover over me</button>
+
+<div *ngIf="isHovered">
+    Hi welcome to the tool tip!!
+</div>
+
+
+
+<span></span>
+<button appCustomToolTip class="tooltip-host" style="margin-top: 20px; display: block; position: relative;">
+    test
+</button>
+
+<p appHighlighter>select to highlight me</p>

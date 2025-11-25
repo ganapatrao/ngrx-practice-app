@@ -18,7 +18,6 @@ selectedItem(index:number){
  }
  this.selectedIndex = index
 
-
 }
 
    studentsrecords =[{name:'rock',age:22,grade:'B'},
