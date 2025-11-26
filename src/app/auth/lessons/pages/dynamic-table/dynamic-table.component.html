@@ -1,0 +1,40 @@
+
+
+<table class="user-table">
+    <thead>
+        <tr>
+            <th *ngFor="let head of headers" >{{head.head}}</th>
+
+        </tr>
+    </thead>
+    <tbody >
+        <tr *ngFor="let data of GridArray">
+            <td *ngFor="let key of headers">
+                <div  *ngIf="key.fieldName"> {{data[key.fieldName]}}</div>
+               <div *ngIf="key.fieldName == ''">
+                <button>edit</button>
+                <button>delete</button>
+               </div>
+            </td>
+
+            <!-- <td>{{data.name}}</td><td>{{data.email}}</td> -->
+        </tr>
+    </tbody>
+</table> 
+
+
+
+<!-- 
+<table class="user-table">
+    <thead>
+        <tr>
+            <th >Name</th>
+            <th>email</th>
+        </tr>
+    </thead>
+    <tbody >
+        <tr *ngFor="let data of userlist">
+            <td>{{data.name}}</td><td>{{data.email}}</td>
+        </tr>
+    </tbody>
+</table> -->

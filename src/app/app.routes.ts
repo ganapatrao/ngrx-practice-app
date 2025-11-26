@@ -59,7 +59,12 @@ export const routes: Routes = [
 {
     path: 'practice-session/reactiveform',
     loadComponent: () => import('./auth/lessons/pages/reactive-form/reactive-form.component').then(m => m.ReactiveFormComponent)
-}
+},
+{
+    path: 'practice-session/ParentFormComponent',
+    loadComponent: () => import('./auth/lessons/pages/dynamic-table/parent-form/parent-form.component').then(m => m.ParentFormComponent)
+},
+
     
     
     
