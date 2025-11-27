@@ -64,6 +64,10 @@ export const routes: Routes = [
     path: 'practice-session/ParentFormComponent',
     loadComponent: () => import('./auth/lessons/pages/dynamic-table/parent-form/parent-form.component').then(m => m.ParentFormComponent)
 },
+{
+    path: 'practice-session/Pagination',
+    loadComponent: () => import('./auth/lessons/pages/pagination/pagination.component').then(m => m.PaginationComponent)
+}
 
     
     
