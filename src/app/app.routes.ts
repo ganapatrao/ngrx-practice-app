@@ -76,7 +76,16 @@ export const routes: Routes = [
 {
     path: 'practice-session/family-reactive',
 loadComponent:()=>import('./auth/lessons/pages/reactive-form-family/reactive-form-family.component').then(m=>m.ReactiveFormFamilyComponent)
-}
+},
+{
+    path: 'practice-session/reactiveform-machine-test',
+    loadComponent: () => import('./auth/lessons/pages/reactive-forms-machine-test/reactive-forms-machine-test.component').then(m => m.ReactiveFormsMachineTestComponent)
+},
+
+// {
+//     path: 'practice-session/reactiveform-machine-test-2',
+//     loadComponent: () => import('./auth/lessons/pages/reactive-forms-machine-test/reactive-forms-machine-test.component').then(m => m.ReactiveFormsMachineTestComponent)
+// }
     
     
     

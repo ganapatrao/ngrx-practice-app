@@ -1,0 +1,23 @@
+<form [formGroup]="employeeForm" class="employee-form" (submit)="submit()">
+  <div class="form-field">
+    <label for="name">name</label> 
+    <input type="text" formControlName="name"
+    [ngClass]="{'error-border':employeeForm.get('name')?.touched && employeeForm.get('name')?.hasError('required')}"/>
+
+    <div class=" error" *ngIf="employeeForm.get('name')?.touched && employeeForm.get('name')?.hasError('required')">
+name is required
+    </div>
+  
+</div>
+  <div class="form-field">
+    <label for="address">address</label>
+    <input type="text" formControlName="address"
+    [ngClass]="{'error-border':employeeForm.get('address')?.touched && employeeForm.get('address')?.hasError('required')}" />
+
+    <div class="error" *ngIf="employeeForm.get('address')?.touched && employeeForm.get('address')?.hasError('required')">
+        Address is required
+    </div>
+  </div>
+
+  <button class="btn btn-primary" type="submit" [disabled]="employeeForm.invalid">submit</button>
+</form>
