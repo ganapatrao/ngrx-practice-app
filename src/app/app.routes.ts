@@ -67,8 +67,16 @@ export const routes: Routes = [
 {
     path: 'practice-session/Pagination',
     loadComponent: () => import('./auth/lessons/pages/pagination/pagination.component').then(m => m.PaginationComponent)
+},
+{
+    path: 'practice-session/Ecommerce',
+    loadComponent: () => import('./auth/lessons/pages/ecommerce-test/ecommerce-test.component').then(m => m.EcommerceTestComponent)   
 }
-
+,
+{
+    path: 'practice-session/family-reactive',
+loadComponent:()=>import('./auth/lessons/pages/reactive-form-family/reactive-form-family.component').then(m=>m.ReactiveFormFamilyComponent)
+}
     
     
     

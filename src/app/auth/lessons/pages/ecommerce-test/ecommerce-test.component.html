@@ -1,0 +1,24 @@
+<!-- <nav class="navbar">
+<ul class="nav-links">
+    <li> <a href="http://">home</a></li>
+    <li><a href="http://">product</a></li>
+    <li><a href="http://">checkout</a></li>
+</ul>
+</nav> -->
+
+<select name="optiosn details" id="" [(ngModel)]="selectedtype" (change)="filterSelected()">
+    <option value="">select option</option>
+    <option value="asta">asta</option>
+    <option value="bsta">bsta</option>
+</select>
+
+<div class="parent">
+  <div *ngFor="let item of filteredProducts" class="card">
+    <h5>{{ item.name }}</h5>
+    <div class="span-spacing">
+      <span>{{ item.price }}</span>
+      <span>{{ item.quantity }}</span>
+      <span>{{ item.total }}</span>
+    </div>
+  </div>
+</div>
