@@ -1,0 +1,122 @@
+<form [formGroup]="employeeForm" class="employee-form">
+  <div formGroupName="basicDetails" class="groups">
+    <div class="form-field">
+      <label for="name">name</label>
+      <input
+        type="text"
+        formControlName="name"
+        [ngClass]="{
+          'error-border':
+            employeeForm.get('name')?.touched &&
+            employeeForm.get('name')?.hasError('required')
+        }"
+      />
+
+      <div
+        class="error"
+        *ngIf="
+          employeeForm.get('name')?.touched &&
+          employeeForm.get('name')?.hasError('required')
+        "
+      >
+        name is required
+      </div>
+    </div>
+
+    <div class="form-field">
+      <label for="address">address</label>
+      <input
+        type="text"
+        formControlName="address"
+        [ngClass]="{
+          'error-border':
+            employeeForm.get('address')?.touched &&
+            employeeForm.get('address')?.hasError('required')
+        }"
+      />
+
+      <div
+        class="error"
+        *ngIf="
+          employeeForm.get('address')?.touched &&
+          employeeForm.get('address')?.hasError('required')
+        "
+      >
+        Address is required
+      </div>
+    </div>
+  </div>
+
+  <div formGroupName="contactDetails" class="groups">
+    <div class="form-field">
+      <label for="name">email</label>
+      <input
+        type="text"
+        formControlName="email"
+        [ngClass]="{
+          'error-border':
+            employeeForm.get('email')?.touched &&
+            employeeForm.get('email')?.hasError('required')
+        }"
+      />
+
+      <div
+        class="error"
+        *ngIf="
+          employeeForm.get('email')?.touched &&
+          employeeForm.get('email')?.hasError('required')
+        "
+      >
+        name is required
+      </div>
+    </div>
+
+    <div class="form-field">
+      <label for="address">phone</label>
+      <input
+        type="text"
+        formControlName="phone"
+        [ngClass]="{
+          'error-border':
+            employeeForm.get('phone')?.touched &&
+            employeeForm.get('phone')?.hasError('required')
+        }"
+      />
+
+      <div
+        class="error"
+        *ngIf="
+          employeeForm.get('phone')?.touched &&
+          employeeForm.get('phone')?.hasError('required')
+        "
+      >
+        phone is required
+      </div>
+    </div>
+  </div>
+  <div><button (click)="addSkills()">add skills</button></div>
+
+  <div formArrayName="skills">
+    <!-- gt go though this -->
+    <div
+      *ngFor="let skill of SkillsArray.controls; let i = index"
+      [formGroupName]="i"
+    >
+      <div style="display: flex; flex-direction: column">
+        <label for="skills">Skills</label>
+        <input type="text" formControlName="skillName" />
+        <label for="experience"> experience</label>
+        <input type="text" formControlName="experince" />
+      </div>
+    </div>
+  </div>
+
+  <button
+    class="btn btn-primary"
+    [disabled]="employeeForm.invalid"
+    style="margin-top: 10px"
+    (click)="submit()"
+  >
+    submit
+  </button>
+</form>

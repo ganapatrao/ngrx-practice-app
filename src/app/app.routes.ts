@@ -82,10 +82,14 @@ loadComponent:()=>import('./auth/lessons/pages/reactive-form-family/reactive-for
     loadComponent: () => import('./auth/lessons/pages/reactive-forms-machine-test/reactive-forms-machine-test.component').then(m => m.ReactiveFormsMachineTestComponent)
 },
 
-// {
-//     path: 'practice-session/reactiveform-machine-test-2',
-//     loadComponent: () => import('./auth/lessons/pages/reactive-forms-machine-test/reactive-forms-machine-test.component').then(m => m.ReactiveFormsMachineTestComponent)
-// }
+{
+    path: 'practice-session/reactiveform-machine-test-level2',
+    loadComponent: () => import('./auth/lessons/pages/reactive-forms-machine-test-level2/reactive-forms-machine-test-level2.component').then(m => m.ReactiveFormsMachineTestLevel2Component)
+}
+,{
+    path: 'practice-session/reactiveform-machine-test-level3',
+    loadComponent: () => import('./auth/lessons/pages/reactive-forms-machine-test-level2/reactive-forms-machine-test-level2.component').then(m => m.ReactiveFormsMachineTestLevel2Component)
+}
     
     
     
