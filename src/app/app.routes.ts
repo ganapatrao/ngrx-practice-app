@@ -90,9 +90,9 @@ loadComponent:()=>import('./auth/lessons/pages/reactive-form-family/reactive-for
     path: 'practice-session/reactiveform-machine-test-level3',
     loadComponent: () => import('./auth/lessons/pages/reactive-forms-machine-test-level3/reactive-forms-machine-test-level3.component').then(m => m.ReactiveFormsMachineTestLevel3Component)
 },
-,{
-    path: 'practice-session/reactiveform-machine-test-level3',
-    loadComponent: () => import('./auth/lessons/pages/reactive-forms-machine-test-level3/reactive-forms-machine-test-level3.component').then(m => m.ReactiveFormsMachineTestLevel3Component)
+{
+    path: 'practice-session/bootstrap-brushup',
+    loadComponent: () => import('./auth/lessons/pages/bootstrap-brushup/bootstrap-brushup.component').then(m => m.BootstrapBrushupComponent)
 }
     
     

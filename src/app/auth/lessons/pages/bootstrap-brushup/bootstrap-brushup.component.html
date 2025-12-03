@@ -1,0 +1,81 @@
+<div class="container" [attr.data-bs-theme]="darkmode">
+<button class="btn btn-success" (click)="darkMode()">darkmode</button>
+
+  <div class="card">
+    <div class="card-header">Header</div>
+    <div class="card-body">Content</div>
+    <div class="card-footer">Footer</div>
+  </div>
+
+  <div class="dropdown mt-3">
+    <button
+      type="button"
+      class="btn btn-primary dropdown-toggle"
+      data-bs-toggle="dropdown"
+    >
+      Dropdown button
+    </button>
+    <ul class="dropdown-menu">
+      <li><a class="dropdown-item" href="#">Link 1</a></li>
+      <li><a class="dropdown-item" href="#">Link 2</a></li>
+      <li><a class="dropdown-item" href="#">Link 3</a></li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <button data-bs-toggle="collapse" data-bs-target="#demo">
+      Collapsible
+    </button>
+
+
+    <div id="demo" class="collapse">Lorem ipsum dolor text....</div>
+  </div>
+
+
+
+  <!-- modal -->
+   <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">
+  Open modal
+</button>
+
+<div class="modal" id="myModal">
+     <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Modal Heading</h4>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        Modal body..
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+
+<!-- tool tip -->
+ <button type="button" class="btn btn-primary" data-bs-toggle="tooltip" title="Hooray!">Hover over me!</button>
+
+
+ <div class="toast show">
+  <div class="toast-header">
+    Toast Header
+    <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
+  </div>
+  <div class="toast-body">
+    Some text inside the toast body
+  </div>
+</div>
+
+</div>
