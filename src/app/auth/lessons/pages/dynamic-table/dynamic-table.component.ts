@@ -1,22 +1,13 @@
-import { JsonPipe, NgForOf, NgIf } from '@angular/common';
+import { NgForOf, NgIf } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import {
-  Component,
-  EventEmitter,
-  inject,
-  Input,
-  input,
-  OnInit,
-  Output,
-  output,
-} from '@angular/core';
+import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-dynamic-table',
   standalone: true,
-  imports: [NgForOf, JsonPipe, NgIf],
+  imports: [NgForOf, NgIf],
   templateUrl: './dynamic-table.component.html',
-  styleUrl: './dynamic-table.component.css',
+  styleUrls: ['./dynamic-table.component.css'],
 })
 export class DynamicTableComponent {
   http = inject(HttpClient);

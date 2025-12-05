@@ -1,0 +1,14 @@
+pre {
+  background: #f8f9fa;
+  padding: 12px;
+  border-radius: 6px;
+}
+
+.card-header {
+  background: #0d6efd;
+  color: white;
+}
+
+ul {
+  margin-left: 15px;
+}

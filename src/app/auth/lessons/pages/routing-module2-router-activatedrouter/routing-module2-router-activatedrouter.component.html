@@ -1,0 +1,228 @@
+<div class="container my-4">
+
+  <h2 class="mb-4">Module 2 – Router vs ActivatedRoute & Passing Data Through Routing (With URL Examples)</h2>
+
+
+
+  <!-- 1. Router vs ActivatedRoute -->
+  <div class="card mb-4">
+    <div class="card-header fw-bold">1. Router vs ActivatedRoute</div>
+    <div class="card-body">
+
+      <p><strong>Router</strong> → used to navigate to another route.</p>
+      <p><strong>ActivatedRoute</strong> → used to read info about the current route.</p>
+
+      <ul>
+        <li>“I want to go somewhere” → <strong>use Router</strong></li>
+        <li>“I want to know where I am” → <strong>use ActivatedRoute</strong></li>
+      </ul>
+
+      <p class="fw-bold mt-3">Injecting Router & ActivatedRoute:</p>
+      <pre><code [innerHTML]="code_inject_router_route"></code></pre>
+
+    </div>
+  </div>
+
+
+
+  <!-- 2. Router inside Service -->
+  <div class="card mb-4">
+    <div class="card-header fw-bold">2. Using Router in a Service</div>
+    <div class="card-body">
+      <pre><code [innerHTML]="code_service_router"></code></pre>
+    </div>
+  </div>
+
+
+
+  <!-- 3. Route Params -->
+  <div class="card mb-4">
+    <div class="card-header fw-bold">3. Route Params ( /users/:id )</div>
+    <div class="card-body">
+
+      <p><strong>Route config:</strong></p>
+      <pre><code [innerHTML]="code_route_params_config"></code></pre>
+
+      <p><strong>Navigate:</strong></p>
+      <pre><code [innerHTML]="code_route_params_nav"></code></pre>
+
+      <p><strong>Resulting URL:</strong> <span class="text-primary">{{ url_route_params }}</span></p>
+
+      <p><strong>Read:</strong></p>
+      <pre><code [innerHTML]="code_route_params_read"></code></pre>
+
+    </div>
+  </div>
+
+
+
+  <!-- 4. Query Params -->
+  <div class="card mb-4">
+    <div class="card-header fw-bold">4. Query Params</div>
+    <div class="card-body">
+
+      <p><strong>Navigate:</strong></p>
+      <pre><code [innerHTML]="code_queryparams_nav"></code></pre>
+
+      <p><strong>Resulting URL:</strong> <span class="text-primary">{{ url_query_params }}</span></p>
+
+      <p><strong>Read:</strong></p>
+      <pre><code [innerHTML]="code_queryparams_read"></code></pre>
+
+    </div>
+  </div>
+
+
+
+  <!-- 5. Fragment -->
+  <div class="card mb-4">
+    <div class="card-header fw-bold">5. Fragment</div>
+    <div class="card-body">
+
+      <p><strong>Navigate:</strong></p>
+      <pre><code [innerHTML]="code_fragment_nav"></code></pre>
+
+      <p><strong>Resulting URL:</strong> <span class="text-primary">{{ url_fragment }}</span></p>
+
+      <p><strong>Read fragment:</strong></p>
+      <pre><code [innerHTML]="code_fragment_read"></code></pre>
+
+      <p><strong>HTML example:</strong></p>
+      <pre><code [innerHTML]="code_fragment_html"></code></pre>
+
+    </div>
+  </div>
+
+
+
+  <!-- 6. Static Route Data -->
+  <div class="card mb-4">
+    <div class="card-header fw-bold">6. Static Route Data</div>
+    <div class="card-body">
+
+      <p><strong>Route config:</strong></p>
+      <pre><code [innerHTML]="code_static_data_route"></code></pre>
+
+      <p><strong>URL:</strong> <span class="text-primary">{{ url_static_data }}</span></p>
+
+      <p><strong>Read:</strong></p>
+      <pre><code [innerHTML]="code_static_data_read"></code></pre>
+
+    </div>
+  </div>
+
+
+
+  <!-- 7. Navigation State -->
+  <div class="card mb-4">
+    <div class="card-header fw-bold">7. Navigation State</div>
+    <div class="card-body">
+
+      <p><strong>Navigate:</strong></p>
+      <pre><code [innerHTML]="code_state_nav"></code></pre>
+
+      <p><strong>URL:</strong> <span class="text-primary">{{ url_navigation_state }}</span></p>
+
+      <p><strong>Read:</strong></p>
+      <pre><code [innerHTML]="code_state_read"></code></pre>
+
+      <p class="text-danger fw-bold">This data does NOT persist after page refresh.</p>
+
+    </div>
+  </div>
+
+
+
+  <!-- 8. Snapshot vs Observable -->
+  <div class="card mb-4">
+    <div class="card-header fw-bold">8. Snapshot vs Observable</div>
+    <div class="card-body">
+      <pre><code [innerHTML]="code_snapshot_vs_observable"></code></pre>
+    </div>
+  </div>
+
+
+
+  <!-- 9. Relative Navigation -->
+  <div class="card mb-4">
+    <div class="card-header fw-bold">9. Relative Navigation</div>
+    <div class="card-body">
+
+      <p><strong>Navigation:</strong></p>
+      <pre><code [innerHTML]="code_relative_nav"></code></pre>
+
+      <p><strong>Example output:</strong></p>
+      <span class="text-primary">{{ url_relative_navigation_example }}</span>
+
+    </div>
+  </div>
+
+  <div class="card mb-4">
+  <div class="card-header fw-bold">Interview Questions & Answers – Module 2</div>
+  <div class="card-body">
+
+    <p><strong>Q1. What is the difference between Router and ActivatedRoute?</strong></p>
+    <p><strong>Answer:</strong> Router is used to navigate to a different route. ActivatedRoute is used to read information about the current active route such as parameters, query parameters, fragments, and static route data.</p>
+
+    <hr>
+
+    <p><strong>Q2. How do you access query parameters?</strong></p>
+    <p><strong>Answer:</strong> Query parameters can be accessed in four ways:</p>
+    <ul>
+      <li>route.queryParamMap — reactive and type safe</li>
+      <li>route.queryParams — reactive, plain object</li>
+      <li>route.snapshot.queryParamMap — one-time read</li>
+      <li>route.snapshot.queryParams — one-time read, plain object</li>
+    </ul>
+
+    <hr>
+
+    <p><strong>Q3. How do you access static route data?</strong></p>
+    <p><strong>Answer:</strong> Static route data can be accessed using:</p>
+    <ul>
+      <li>route.data — reactive, preferred</li>
+      <li>route.snapshot.data — one-time read</li>
+      <li>route.parent.data — reading data from parent route</li>
+      <li>route.firstChild.data — reading data from child route</li>
+    </ul>
+
+    <hr>
+
+    <p><strong>Q4. When should you use route parameters?</strong></p>
+    <p><strong>Answer:</strong> Route parameters are used when the value identifies a resource, such as user ID, product ID, or item ID.</p>
+
+    <hr>
+
+    <p><strong>Q5. When should you use query parameters?</strong></p>
+    <p><strong>Answer:</strong> Query parameters are used for filters, search, sorting, pagination, and other optional values that do not identify a resource.</p>
+
+    <hr>
+
+    <p><strong>Q6. What is a fragment and when do you use it?</strong></p>
+    <p><strong>Answer:</strong> A fragment is the part after the hash in the URL. It is used to jump or scroll to a specific section on a page, such as a top anchor or a highlighted block.</p>
+
+    <hr>
+
+    <p><strong>Q7. What is navigation state?</strong></p>
+    <p><strong>Answer:</strong> Navigation state allows passing temporary data during routing without exposing it in the URL. It is suitable for items like a cart, form data, or selected items. It does not survive page refresh.</p>
+
+    <hr>
+
+    <p><strong>Q8. What is the difference between snapshot and observable when reading parameters?</strong></p>
+    <p><strong>Answer:</strong> Snapshot reads the values only once when the component loads. Observables update automatically when the route parameters change while the component is still active.</p>
+
+    <hr>
+
+    <p><strong>Q9. What is relative navigation?</strong></p>
+    <p><strong>Answer:</strong> Relative navigation allows navigating relative to the current route instead of starting from the root. It is used inside nested routes and child modules.</p>
+
+    <hr>
+
+    <p><strong>Q10. What is the difference between queryParamMap and queryParams?</strong></p>
+    <p><strong>Answer:</strong> queryParamMap is type safe and provides helper methods like get. queryParams returns a plain object. queryParamMap is recommended for cleaner, safer code.</p>
+
+  </div>
+</div>
+
+
+</div>

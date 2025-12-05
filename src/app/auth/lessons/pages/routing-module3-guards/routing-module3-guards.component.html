@@ -1,0 +1,377 @@
+<p>routing-module3-guards works!</p>
+<div class="container my-4">
+
+  <h2 class="mb-4">Module 3 – Angular Route Guards (Complete Guide)</h2>
+
+  <!-- A. What are Guards -->
+  <div class="card mb-4">
+    <div class="card-header fw-bold">A1. What are Angular Guards?</div>
+    <div class="card-body">
+      <p>
+        Angular Guards are functions that run before a route is activated, loaded, matched, or left.
+        They decide whether a user can navigate to a route, load a lazy module, or leave a page.
+      </p>
+      <p>
+        They are used for authentication, authorization, role based access, preventing data loss,
+        and preloading data before showing a page.
+      </p>
+    </div>
+  </div>
+
+  <!-- A2 Why we need them -->
+  <div class="card mb-4">
+    <div class="card-header fw-bold">A2. Why do we need Guards?</div>
+    <div class="card-body">
+      <ul>
+        <li>To protect routes from unauthorized access.</li>
+        <li>To restrict certain routes to specific roles such as admin.</li>
+        <li>To prevent users from leaving a page with unsaved changes.</li>
+        <li>To avoid loading lazy modules if the user does not have access.</li>
+        <li>To fetch data before the component is created using a resolver.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- A3 Types -->
+  <div class="card mb-4">
+    <div class="card-header fw-bold">A3. Types of Angular Guards</div>
+    <div class="card-body">
+      <ul>
+        <li><strong>CanActivate</strong> – Can the user enter this route.</li>
+        <li><strong>CanActivateChild</strong> – Can the user access child routes.</li>
+        <li><strong>CanDeactivate</strong> – Can the user leave this route.</li>
+        <li><strong>CanLoad</strong> – Can the lazy loaded module be loaded.</li>
+        <li><strong>Resolve</strong> – Fetch data before activating the route.</li>
+        <li><strong>CanMatch</strong> – Decide which route definition should match a URL.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- A4 Internal flow -->
+  <div class="card mb-4">
+    <div class="card-header fw-bold">A4. Internal Flow of Routing with Guards</div>
+    <div class="card-body">
+      <p>When Angular navigates to a route, the internal steps are:</p>
+      <ol>
+        <li>Router parses the URL.</li>
+        <li>Router finds the best matching route in the route configuration.</li>
+        <li>Router runs guards in order:
+          <ul>
+            <li>CanMatch</li>
+            <li>CanLoad</li>
+            <li>CanActivateChild</li>
+            <li>CanActivate</li>
+            <li>Resolve</li>
+          </ul>
+        </li>
+        <li>If any guard blocks navigation, the route is not activated.</li>
+        <li>If guards allow navigation, the component is created and rendered inside the router outlet.</li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- A5 Return types -->
+  <div class="card mb-4">
+    <div class="card-header fw-bold">A5. What can a Guard return?</div>
+    <div class="card-body">
+      <p>Each guard can return one of the following:</p>
+      <ul>
+        <li><strong>true</strong> – allow navigation.</li>
+        <li><strong>false</strong> – block navigation and stay on the current page.</li>
+        <li><strong>UrlTree</strong> – cancel the current navigation and redirect to another URL.</li>
+        <li><strong>Observable of boolean or UrlTree</strong> – async decisions.</li>
+        <li><strong>Promise of boolean or UrlTree</strong> – async decisions with promises.</li>
+      </ul>
+      <p>
+        Returning a UrlTree using router.parseUrl is the recommended way to redirect from a guard.
+      </p>
+      <pre><code [innerHTML]="code_guard_urltree_example"></code></pre>
+    </div>
+  </div>
+
+  <!-- B1 CanActivate -->
+  <div class="card mb-4">
+    <div class="card-header fw-bold">B1. CanActivate – Authentication and Role Based Guard</div>
+    <div class="card-body">
+      <p>
+        CanActivate is used to check if the user can enter a route. Typical checks include whether
+        the user is logged in and whether the user has the correct role.
+      </p>
+      <p class="fw-bold">Guard implementation:</p>
+      <pre><code [innerHTML]="code_canactivate_guard"></code></pre>
+
+      <p class="fw-bold mt-3">Route configuration:</p>
+      <pre><code [innerHTML]="code_canactivate_route"></code></pre>
+    </div>
+  </div>
+
+  <!-- B2 CanActivateChild -->
+  <div class="card mb-4">
+    <div class="card-header fw-bold">B2. CanActivateChild – Protect Child Routes</div>
+    <div class="card-body">
+      <p>
+        CanActivateChild runs before a child route is activated. It is useful when all child routes
+        of a parent route should be protected with the same logic, such as admin sections.
+      </p>
+      <p class="fw-bold">Guard implementation:</p>
+      <pre><code [innerHTML]="code_canactivatechild_guard"></code></pre>
+
+      <p class="fw-bold mt-3">Route configuration:</p>
+      <pre><code [innerHTML]="code_canactivatechild_route"></code></pre>
+    </div>
+  </div>
+
+  <!-- B3 CanDeactivate -->
+  <div class="card mb-4">
+    <div class="card-header fw-bold">B3. CanDeactivate – Prevent Leaving When Form Is Dirty</div>
+    <div class="card-body">
+      <p>
+        CanDeactivate is used to prevent the user from leaving a route if a form has unsaved changes.
+        The component implements an interface that exposes a method like canExit.
+      </p>
+      <p class="fw-bold">Interface:</p>
+      <pre><code [innerHTML]="code_candeactivate_interface"></code></pre>
+
+      <p class="fw-bold mt-3">Guard implementation:</p>
+      <pre><code [innerHTML]="code_candeactivate_guard"></code></pre>
+
+      <p class="fw-bold mt-3">Component example:</p>
+      <pre><code [innerHTML]="code_candeactivate_component"></code></pre>
+
+      <p class="fw-bold mt-3">Route configuration:</p>
+      <pre><code [innerHTML]="code_candeactivate_route"></code></pre>
+    </div>
+  </div>
+
+  <!-- B4 CanLoad -->
+  <div class="card mb-4">
+    <div class="card-header fw-bold">B4. CanLoad – Protect Lazy Loaded Modules</div>
+    <div class="card-body">
+      <p>
+        CanLoad decides whether a lazy loaded module should be loaded at all. If access is denied,
+        Angular will not even download the code for that module, which is more secure than using
+        only CanActivate.
+      </p>
+
+      <p class="fw-bold">Guard implementation:</p>
+      <pre><code [innerHTML]="code_canload_guard"></code></pre>
+
+      <p class="fw-bold mt-3">Route configuration with lazy loading:</p>
+      <pre><code [innerHTML]="code_canload_route"></code></pre>
+    </div>
+  </div>
+
+  <!-- B5 Resolve -->
+  <div class="card mb-4">
+    <div class="card-header fw-bold">B5. Resolve – Preload Data Before Component Loads</div>
+    <div class="card-body">
+      <p>
+        A Resolve guard runs before the route is activated and is used to fetch data that the component needs.
+        The resolved data is available through route.data in the component.
+      </p>
+
+      <p class="fw-bold">Resolver implementation:</p>
+      <pre><code [innerHTML]="code_resolve_guard"></code></pre>
+
+      <p class="fw-bold mt-3">Route configuration:</p>
+      <pre><code [innerHTML]="code_resolve_route"></code></pre>
+
+      <p class="fw-bold mt-3">Component reading resolved data:</p>
+      <pre><code [innerHTML]="code_resolve_component"></code></pre>
+    </div>
+  </div>
+
+  <!-- B6 CanMatch – Feature Flags -->
+  <div class="card mb-4">
+    <div class="card-header fw-bold">B6. CanMatch – Feature Flags (New vs Old Dashboard)</div>
+    <div class="card-body">
+      <p>
+        CanMatch can be used to decide which route definition should be used for the same path.
+        This allows implementing feature flags where different modules load for the same URL
+        based on whether a feature is enabled.
+      </p>
+
+      <p class="fw-bold">Route configuration with two dashboards:</p>
+      <pre><code [innerHTML]="code_canmatch_feature_routes"></code></pre>
+
+      <p class="fw-bold mt-3">Old dashboard guard:</p>
+      <pre><code [innerHTML]="code_canmatch_feature_old_guard"></code></pre>
+
+      <p class="fw-bold mt-3">New dashboard guard:</p>
+      <pre><code [innerHTML]="code_canmatch_feature_new_guard"></code></pre>
+    </div>
+  </div>
+
+  <!-- B7 CanMatch – A/B Testing -->
+  <div class="card mb-4">
+    <div class="card-header fw-bold">B7. CanMatch – A B Testing</div>
+    <div class="card-body">
+      <p>
+        CanMatch can be used for A B testing by routing some users to one version of a page and
+        others to a different version, all under the same URL.
+      </p>
+
+      <p class="fw-bold">Route configuration:</p>
+      <pre><code [innerHTML]="code_canmatch_ab_routes"></code></pre>
+
+      <p class="fw-bold mt-3">Group A guard:</p>
+      <pre><code [innerHTML]="code_canmatch_ab_guard_a"></code></pre>
+
+      <p class="fw-bold mt-3">Group B guard:</p>
+      <pre><code [innerHTML]="code_canmatch_ab_guard_b"></code></pre>
+    </div>
+  </div>
+
+  <!-- B8 CanMatch – Device Based Routing -->
+  <div class="card mb-4">
+    <div class="card-header fw-bold">B8. CanMatch – Device Based Routing</div>
+    <div class="card-body">
+      <p>
+        You can serve different modules or layouts for mobile and desktop using CanMatch
+        while keeping the same URL.
+      </p>
+
+      <p class="fw-bold">Route configuration:</p>
+      <pre><code [innerHTML]="code_canmatch_device_routes"></code></pre>
+
+      <p class="fw-bold mt-3">Mobile guard:</p>
+      <pre><code [innerHTML]="code_canmatch_device_mobile_guard"></code></pre>
+
+      <p class="fw-bold mt-3">Desktop guard:</p>
+      <pre><code [innerHTML]="code_canmatch_device_desktop_guard"></code></pre>
+    </div>
+  </div>
+
+  <!-- B9 CanMatch – Logged In vs Logged Out -->
+  <div class="card mb-4">
+    <div class="card-header fw-bold">B9. CanMatch – Logged In vs Logged Out Routing</div>
+    <div class="card-body">
+      <p>
+        CanMatch can route logged in users to a dashboard module and logged out users to a public
+        home module using the same URL.
+      </p>
+
+      <p class="fw-bold">Route configuration:</p>
+      <pre><code [innerHTML]="code_canmatch_auth_routes"></code></pre>
+
+      <p class="fw-bold mt-3">Logged in guard:</p>
+      <pre><code [innerHTML]="code_canmatch_auth_loggedin_guard"></code></pre>
+
+      <p class="fw-bold mt-3">Logged out guard:</p>
+      <pre><code [innerHTML]="code_canmatch_auth_loggedout_guard"></code></pre>
+    </div>
+  </div>
+
+  <!-- Interview Questions -->
+<div class="card mb-4">
+  <div class="card-header fw-bold">Interview Questions & Answers – Module 3 (Angular Guards)</div>
+  <div class="card-body">
+
+    <p><strong>Q1. What are Angular Guards?</strong></p>
+    <p><strong>Answer:</strong> Guards are functions that run before a route is activated, loaded, matched, or exited. They protect routes from unauthorized access, prevent data loss, and allow conditional control of navigation. Guards run before the component is created.</p>
+
+    <hr>
+
+    <p><strong>Q2. What are the different types of Angular Guards?</strong></p>
+    <p><strong>Answer:</strong> Angular provides six types of guards:</p>
+    <ul>
+      <li><strong>CanActivate</strong> – checks if a route can be activated.</li>
+      <li><strong>CanActivateChild</strong> – checks access for child routes.</li>
+      <li><strong>CanDeactivate</strong> – checks if the user can leave the route.</li>
+      <li><strong>CanLoad</strong> – controls whether a lazy loaded module can be loaded.</li>
+      <li><strong>Resolve</strong> – preloads data before the component loads.</li>
+      <li><strong>CanMatch</strong> – selects which route configuration to use for a URL.</li>
+    </ul>
+
+    <hr>
+
+    <p><strong>Q3. When do you use CanActivate?</strong></p>
+    <p><strong>Answer:</strong> CanActivate is used for login checks, role based access control, verifying authentication, email verification, or token validation. It prevents unauthorized users from entering restricted pages.</p>
+
+    <hr>
+
+    <p><strong>Q4. What is CanActivateChild used for?</strong></p>
+    <p><strong>Answer:</strong> It is used when all child routes under a parent route need to be guarded. Example: protecting all admin pages under an admin layout.</p>
+
+    <hr>
+
+    <p><strong>Q5. What is CanDeactivate and why is it important?</strong></p>
+    <p><strong>Answer:</strong> CanDeactivate prevents the user from leaving a route when there are unsaved changes. It is commonly used for forms to avoid accidental data loss. The component must implement a method like canExit.</p>
+
+    <hr>
+
+    <p><strong>Q6. What is the difference between CanActivate and CanLoad?</strong></p>
+    <p><strong>Answer:</strong> CanActivate decides if a user can navigate to a route, but the module already loads. CanLoad prevents lazy-loaded modules from even downloading if access is denied, making it more secure.</p>
+
+    <hr>
+
+    <p><strong>Q7. What is a Resolve guard and when should it be used?</strong></p>
+    <p><strong>Answer:</strong> Resolve runs before the component loads and fetches data required by the page. It avoids empty UI states and prevents showing components before essential data arrives. The resolved data is available inside route.data.</p>
+
+    <hr>
+
+    <p><strong>Q8. What is CanMatch and how is it different from CanLoad?</strong></p>
+    <p><strong>Answer:</strong> CanMatch runs before route matching and can decide which route configuration should match a URL. It is more flexible than CanLoad and supports scenarios like feature flags, A B testing, device based routing, or routing logged in users to a different module.</p>
+
+    <hr>
+
+    <p><strong>Q9. How do you use CanMatch for feature flags?</strong></p>
+    <p><strong>Answer:</strong> You define two route definitions with the same path and use different CanMatch guards to decide whether the old or new module should load. This allows releasing new features to selected users without changing the URL.</p>
+
+    <hr>
+
+    <p><strong>Q10. How does CanMatch enable A B testing?</strong></p>
+    <p><strong>Answer:</strong> CanMatch can route some users to version A of a page and others to version B, all using the same URL. Different guards check the experiment group and allow only one matching route to activate.</p>
+
+    <hr>
+
+    <p><strong>Q11. How can CanMatch be used for device based routing?</strong></p>
+    <p><strong>Answer:</strong> Separate route definitions for mobile and desktop modules can be created under the same path. CanMatch checks the device type and selects which module to load.</p>
+
+    <hr>
+
+    <p><strong>Q12. What can a guard return?</strong></p>
+    <p><strong>Answer:</strong> A guard can return:</p>
+    <ul>
+      <li>true – allow navigation</li>
+      <li>false – block navigation</li>
+      <li>UrlTree – redirect to another URL</li>
+      <li>Observable of boolean or UrlTree</li>
+      <li>Promise of boolean or UrlTree</li>
+    </ul>
+    <p>Returning a UrlTree is recommended because it cancels the current navigation and performs a clean redirect.</p>
+
+    <hr>
+
+    <p><strong>Q13. How does returning UrlTree work inside guards?</strong></p>
+    <p><strong>Answer:</strong> Returning a UrlTree tells Angular to stop the current navigation and start a new navigation to the provided URL. It is cleaner than manually calling router.navigate inside a guard.</p>
+
+    <hr>
+
+    <p><strong>Q14. What is the execution order of guards?</strong></p>
+    <p><strong>Answer:</strong> Angular runs guards in the following order:</p>
+    <ol>
+      <li>CanMatch</li>
+      <li>CanLoad</li>
+      <li>CanActivateChild</li>
+      <li>CanActivate</li>
+      <li>Resolve</li>
+    </ol>
+
+    <hr>
+
+    <p><strong>Q15. What are common mistakes developers make with guards?</strong></p>
+    <p><strong>Answer:</strong></p>
+    <ul>
+      <li>Using CanActivate instead of CanLoad for lazy-loaded modules.</li>
+      <li>Calling router.navigate inside guards instead of returning UrlTree.</li>
+      <li>Not handling async guards properly with Observables.</li>
+      <li>Using snapshot instead of observable inside resolvers.</li>
+      <li>Forgetting to implement canExit in components using CanDeactivate.</li>
+    </ul>
+
+  </div>
+</div>
+
+
+</div>

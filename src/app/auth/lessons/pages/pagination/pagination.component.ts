@@ -1,13 +1,13 @@
-import { JsonPipe, NgFor, NgClass } from '@angular/common';
+import { NgFor, NgClass } from '@angular/common';
 import { Component } from '@angular/core';
 
 
 @Component({
   selector: 'app-pagination',
   standalone: true,
-  imports: [NgFor, JsonPipe, NgClass],
+  imports: [NgFor, NgClass],
   templateUrl: './pagination.component.html',
-  styleUrl: './pagination.component.css'
+  styleUrls: ['./pagination.component.css']
 })
 export class PaginationComponent {
 

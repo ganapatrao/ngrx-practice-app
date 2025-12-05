@@ -1,0 +1,272 @@
+<div class="container my-4">
+
+  <h2 class="mb-4">Module 5 – Server Side Rendering (SSR) and Hydration in Angular</h2>
+
+  <!-- A1 What is SSR -->
+  <div class="card mb-4">
+    <div class="card-header fw-bold">A1. What is Server Side Rendering (SSR)?</div>
+    <div class="card-body">
+      <p>
+        In a normal Angular SPA the browser downloads JavaScript bundles and renders the page completely on the client.
+        With server side rendering, Angular runs on the server and generates the HTML for a route before sending it to the browser.
+      </p>
+      <p>
+        The browser receives ready to display HTML instead of an empty shell.
+        This improves first paint time and helps search engines index the content.
+      </p>
+      <p class="mt-2">
+        <strong>Senior answer:</strong> SSR means using Angular Universal to run Angular on a Node server to produce fully rendered HTML for each route,
+        reducing time to first contentful paint and enabling better SEO.
+      </p>
+    </div>
+  </div>
+
+  <!-- A2 Why SSR -->
+  <div class="card mb-4">
+    <div class="card-header fw-bold">A2. Why do we use SSR?</div>
+    <div class="card-body">
+      <ul>
+        <li><strong>Faster initial render:</strong> user sees content immediately instead of a blank page.</li>
+        <li><strong>Better SEO:</strong> search engines receive static HTML with real content and meta tags.</li>
+        <li><strong>Better performance on slow devices:</strong> the server performs most of the heavy rendering work.</li>
+        <li><strong>Richer social previews:</strong> social networks can read meta tags and open graph tags correctly.</li>
+      </ul>
+      <p class="mt-2">
+        In short, SSR is primarily about user experience and SEO on content heavy or public facing sites.
+      </p>
+    </div>
+  </div>
+
+  <!-- A3 Hydration -->
+  <div class="card mb-4">
+    <div class="card-header fw-bold">A3. What is Hydration?</div>
+    <div class="card-body">
+      <p>
+        Without hydration, the server can render HTML, but when the client bootstraps Angular it throws away that HTML and re creates the DOM.
+        This can cause flicker and duplicate work.
+      </p>
+      <p>
+        Hydration attaches the Angular client runtime to the existing server rendered DOM instead of creating it again.
+      </p>
+      <p class="mt-2"><strong>Definition:</strong> hydration is the process where Angular reuses server rendered DOM and only wires up event listeners, component state, and change detection.</p>
+      <p>
+        It eliminates flicker, avoids duplicate rendering, and makes the page interactive faster.
+      </p>
+
+      <p class="fw-bold mt-3">Hydration support in main.ts:</p>
+      <pre><code [innerHTML]="code_main_ts_hydration"></code></pre>
+    </div>
+  </div>
+
+  <!-- A4 How to add SSR -->
+  <div class="card mb-4">
+    <div class="card-header fw-bold">A4. How to add SSR to an existing Angular app</div>
+    <div class="card-body">
+      <p>Angular provides a schematic to add SSR and hydration to an existing project:</p>
+      <pre><code [innerHTML]="code_ng_add_ssr"></code></pre>
+      <p class="mt-2">
+        This command configures server side rendering, generates server entry files, and updates the build configuration.
+      </p>
+    </div>
+  </div>
+
+  <!-- B1 main.server.ts and config -->
+  <div class="card mb-4">
+    <div class="card-header fw-bold">B1. main.server.ts and Server Side App Config</div>
+    <div class="card-body">
+      <p>
+        The file main.server.ts bootstraps the Angular application in a server environment. It uses a separate configuration that includes server specific providers.
+      </p>
+      <p class="fw-bold">main.server.ts:</p>
+      <pre><code [innerHTML]="code_main_server_ts"></code></pre>
+
+      <p class="fw-bold mt-3">app.config.server.ts:</p>
+      <pre><code [innerHTML]="code_app_config_server"></code></pre>
+      <p class="mt-2">
+        This configuration uses server rendering providers instead of browser only features.
+      </p>
+    </div>
+  </div>
+
+  <!-- B2 Express server -->
+  <div class="card mb-4">
+    <div class="card-header fw-bold">B2. Basic Express Server for SSR</div>
+    <div class="card-body">
+      <p>
+        A typical SSR setup uses an Express server that serves static files and uses Angular Universal to render HTML for incoming requests.
+      </p>
+      <pre><code [innerHTML]="code_server_ts"></code></pre>
+      <p class="mt-2">
+        For each request, the server calls renderApplication with the current URL and sends the generated HTML back to the client.
+      </p>
+    </div>
+  </div>
+
+  <!-- B3 isPlatformBrowser / isPlatformServer -->
+  <div class="card mb-4">
+    <div class="card-header fw-bold">B3. Handling Browser Only APIs (window, document, localStorage)</div>
+    <div class="card-body">
+      <p>
+        During SSR there is no window, document, or local storage. Accessing them directly causes errors such as window is not defined.
+      </p>
+      <p>
+        Angular provides helpers isPlatformBrowser and isPlatformServer to check the current platform before running browser only code.
+      </p>
+
+      <p class="fw-bold">Example using platform checks:</p>
+      <pre><code [innerHTML]="code_is_platform_example"></code></pre>
+
+      <p class="fw-bold mt-3">Fixing window is not defined errors:</p>
+      <pre><code [innerHTML]="code_window_not_defined_fix"></code></pre>
+    </div>
+  </div>
+
+  <!-- B4 TransferState -->
+  <div class="card mb-4">
+    <div class="card-header fw-bold">B4. Avoiding Double API Calls with TransferState</div>
+    <div class="card-body">
+      <p>
+        When a component calls an API, SSR will execute that call on the server and then the client may call it again after hydration.
+        TransferState lets the server store the API result and the client read it to avoid a second network call.
+      </p>
+
+      <p class="fw-bold">Service using TransferState:</p>
+      <pre><code [innerHTML]="code_transfer_state_service"></code></pre>
+
+      <p class="fw-bold mt-3">Component consuming the service:</p>
+      <pre><code [innerHTML]="code_transfer_state_component"></code></pre>
+
+      <p class="mt-2">
+        On the server, data is written to TransferState. On the client, it is read from TransferState first, then the API is called only if no data exists.
+      </p>
+    </div>
+  </div>
+
+  <!-- C1 Auth with SSR -->
+  <div class="card mb-4">
+    <div class="card-header fw-bold">C1. Authentication with SSR (Cookies vs Local Storage)</div>
+    <div class="card-body">
+      <p>
+        In SSR there is no access to local storage or session storage on the server.
+        This means access tokens stored in local storage are not available during server side rendering.
+      </p>
+      <p>
+        The recommended approach is to keep authentication information such as a session id or token in an HttpOnly cookie.
+        The server can read the cookie for SSR, while client side JavaScript cannot access it directly.
+      </p>
+
+      <p class="fw-bold mt-3">High level cookie based auth idea for SSR:</p>
+      <pre><code [innerHTML]="code_ssr_auth_cookie"></code></pre>
+
+      <p class="mt-2">
+        This pattern allows the server to personalize pages based on the logged in user while keeping tokens protected.
+      </p>
+    </div>
+  </div>
+
+  <!-- C2 Analytics and browser only scripts -->
+  <div class="card mb-4">
+    <div class="card-header fw-bold">C2. Running Analytics Only in the Browser</div>
+    <div class="card-body">
+      <p>
+        Third party scripts such as analytics or tracking should never run during SSR. Use platform checks so that they only execute in the browser.
+      </p>
+      <pre><code [innerHTML]="code_analytics_safe"></code></pre>
+    </div>
+  </div>
+
+  <!-- D1 SEO and performance -->
+  <div class="card mb-4">
+    <div class="card-header fw-bold">D1. SEO and Performance Benefits of SSR</div>
+    <div class="card-body">
+      <p><strong>SEO benefits:</strong></p>
+      <ul>
+        <li>Search engines receive fully rendered HTML instead of a JavaScript shell.</li>
+        <li>Meta tags and structured data are available to crawlers.</li>
+        <li>Better indexing for public pages and blogs.</li>
+      </ul>
+
+      <p><strong>Performance benefits:</strong></p>
+      <ul>
+        <li>Faster time to first contentful paint.</li>
+        <li>Lower CPU usage on low powered devices.</li>
+        <li>Better core web vitals such as largest contentful paint.</li>
+      </ul>
+
+      <p class="mt-2">
+        SSR is especially useful when the initial page is content heavy or must be searchable by search engines.
+      </p>
+    </div>
+  </div>
+
+  <!-- D2 Prerender -->
+  <div class="card mb-4">
+    <div class="card-header fw-bold">D2. Prerendering Static Routes</div>
+    <div class="card-body">
+      <p>
+        In addition to live SSR, Angular can prerender specific routes at build time, generating static HTML files for them.
+      </p>
+      <pre><code [innerHTML]="code_prerender_cmd"></code></pre>
+      <p class="mt-2">
+        Prerendering works well for mostly static marketing pages, while full SSR is used for dynamic or personalized pages.
+      </p>
+    </div>
+  </div>
+
+  <!-- Interview Q&A -->
+  <div class="card mb-4">
+    <div class="card-header fw-bold">Interview Questions & Answers – Module 5 (SSR and Hydration)</div>
+    <div class="card-body">
+
+      <p><strong>Q1. What is SSR in Angular?</strong></p>
+      <p><strong>Answer:</strong> SSR is server side rendering using Angular Universal to run Angular on a Node server and produce HTML for each route. The browser receives fully rendered HTML and then hydrates the page.</p>
+
+      <hr>
+
+      <p><strong>Q2. Why is SSR used?</strong></p>
+      <p><strong>Answer:</strong> SSR is used to improve initial load performance, provide better SEO for public pages, support richer social previews, and reduce work on low powered devices by rendering content on the server.</p>
+
+      <hr>
+
+      <p><strong>Q3. What is hydration and why is it important?</strong></p>
+      <p><strong>Answer:</strong> Hydration is the process where Angular reuses the DOM created on the server and attaches event handlers and change detection to it. Without hydration, the client would throw away server rendered HTML and re render the page, causing flicker and extra work.</p>
+
+      <hr>
+
+      <p><strong>Q4. How does SSR change the way we handle authentication?</strong></p>
+      <p><strong>Answer:</strong> During SSR, local storage and session storage are not available. Authentication data should be stored in HttpOnly cookies that can be read by the server. The server can then render user specific content, while client side code still uses tokens for API calls after hydration.</p>
+
+      <hr>
+
+      <p><strong>Q5. What issues occur if you use window or document directly in SSR?</strong></p>
+      <p><strong>Answer:</strong> Using browser only objects like window or document on the server causes runtime errors such as window is not defined. The fix is to guard such code with platform checks using isPlatformBrowser or to move browser only logic into lifecycle hooks that run only in the browser.</p>
+
+      <hr>
+
+      <p><strong>Q6. How can you avoid double API calls when using SSR?</strong></p>
+      <p><strong>Answer:</strong> Use TransferState. On the server, data fetched from APIs is stored in TransferState. On the client, the same service first checks TransferState and uses that data instead of calling the API again. After reading, it removes the stored value.</p>
+
+      <hr>
+
+      <p><strong>Q7. How does SSR help SEO in Angular apps?</strong></p>
+      <p><strong>Answer:</strong> Search engines receive complete HTML documents from the server, including text content and meta tags, which makes it easier to index pages. This is much more reliable than relying on crawlers to execute client side JavaScript.</p>
+
+      <hr>
+
+      <p><strong>Q8. What is the difference between SSR and prerendering?</strong></p>
+      <p><strong>Answer:</strong> SSR renders pages dynamically on every request, making it suitable for personalized or frequently changing content. Prerendering generates HTML for specific routes at build time and serves them as static files, which is ideal for mostly static content such as marketing pages.</p>
+
+      <hr>
+
+      <p><strong>Q9. How would you fix a window is not defined error in an Angular Universal app?</strong></p>
+      <p><strong>Answer:</strong> Identify where window or document is being used and wrap that logic in a platform check using isPlatformBrowser. Ensure that browser only APIs are executed only on the client side, not during server rendering.</p>
+
+      <hr>
+
+      <p><strong>Q10. Can you describe the high level SSR pipeline in Angular?</strong></p>
+      <p><strong>Answer:</strong> A request hits the Node Express server, which calls the Angular Universal rendering function with the requested URL. Angular runs the app on the server, resolves the route, renders the components to HTML, and returns that HTML to the client. The browser displays the HTML and then the Angular client bootstraps and hydrates the page.</p>
+
+    </div>
+  </div>
+
+</div>

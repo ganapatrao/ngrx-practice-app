@@ -1,0 +1,222 @@
+<div class="container my-4">
+
+  <h2 class="mb-3">Module 1 – Angular Routing Basics</h2>
+
+  <!-- BASIC QUESTIONS -->
+   <div class="card mb-4">
+  <div class="card-header fw-bold">Internal Working of Angular Routing</div>
+  <div class="card-body">
+    <p>
+      Angular Routing internally works as a state machine that listens to URL changes and loads components dynamically
+      without refreshing the page. Here is the flow of how routing actually works behind the scenes:
+    </p>
+
+    <ul>
+      <li><strong>1. URL Parsing:</strong> The Router reads the browser URL and breaks it into segments.</li>
+      <li><strong>2. Route Tree Matching:</strong> It compares each segment with the route configuration from top to bottom.</li>
+      <li><strong>3. Navigation Events:</strong> Angular emits a sequence of navigation lifecycle events such as NavigationStart,
+          RoutesRecognized, GuardsCheckStart, ResolveStart, and NavigationEnd.</li>
+      <li><strong>4. Guard Execution:</strong> If the route has guards, Angular executes authentication or permission checks.</li>
+      <li><strong>5. Resolver Execution:</strong> If resolvers exist, Angular fetches required data before loading the component.</li>
+      <li><strong>6. Dynamic Component Creation:</strong> The matched component is created dynamically using Angular’s dynamic
+          component loader and inserted inside &lt;router-outlet&gt;.</li>
+      <li><strong>7. History API:</strong> Angular uses the HTML5 History API to update the browser URL without reloading the entire page.</li>
+      <li><strong>8. View Rendering:</strong> The final component is rendered inside the router-outlet, completing the navigation.</li>
+    </ul>
+
+    <p>
+      This entire process happens without any full page reload, which makes Angular applications behave like fast,
+      smooth single-page applications.
+    </p>
+  </div>
+</div>
+
+
+  <div class="card mb-4">
+    <div class="card-header fw-bold">1. What is Angular Routing?</div>
+    <div class="card-body">
+      <p>
+        Angular Routing allows navigation between different views in a Single Page Application
+        without reloading the entire page. It maps URLs to components and manages UI state.
+      </p>
+    </div>
+  </div>
+
+  <div class="card mb-4">
+    <div class="card-header fw-bold">2. How does Angular match routes?</div>
+    <div class="card-body">
+      <p>
+        Angular matches routes from top to bottom and selects the first matching route.
+        Specific routes must be placed before generic or dynamic ones.
+      </p>
+    </div>
+  </div>
+
+  <div class="card mb-4">
+    <div class="card-header fw-bold">3. What is &lt;router-outlet&gt;?</div>
+    <div class="card-body">
+      <p>
+        <code>&lt;router-outlet&gt;</code> is a directive provided by Angular Router that acts as a placeholder where the router dynamically loads the component based on the current route configuration.
+      </p>
+    </div>
+  </div>
+
+<div class="card mb-4">
+  <div class="card-header fw-bold">41. Absolute vs Relative Navigation</div>
+
+  <div class="card-body">
+
+    <!-- Absolute Navigation -->
+    <p class="fw-bold">Absolute Navigation</p>
+
+    <p class="text-muted mb-1">
+      <strong>Previous URL:</strong> <code>/admin/users/12/details</code>
+    </p>
+    <p class="text-muted mb-2">
+      <strong>Navigation Code:</strong>
+    </p>
+
+    <pre><code class="language-ts">this.router.navigate(['/products']);</code></pre>
+
+    <p class="text-muted mt-1">
+      <strong>Updated URL:</strong> <code>/products</code>  
+      (Always starts from the root)
+    </p>
+
+    <hr />
+
+    <!-- Relative Navigation -->
+   <p class="fw-bold mt-4">Relative Navigation</p>
+
+    <p class="text-muted mb-1">
+      <strong>Previous URL:</strong> <code>/products/10/specs</code>
+    </p>
+
+    <p class="text-muted mb-2">
+      <strong>Navigation Code:</strong>
+    </p>
+<pre><code class="language-ts">this.router.navigate(['../reviews'], {{ '{' }} relativeTo: this.route {{ '}' }});</code></pre>
+    <p class="text-muted mt-1">
+      <strong>Updated URL:</strong> <code>/products/10/reviews</code>  
+      (Relative to the current route)
+    </p> 
+
+  </div>
+</div>
+
+
+  <div class="card mb-4">
+    <div class="card-header fw-bold">5. Wildcard Route</div>
+    <div class="card-body">
+      <p>Used to handle unknown URLs (404 page).</p>
+
+      <pre><code class="language-ts">{{ '{' }} path: '**', component: PageNotFoundComponent {{ '}' }}</code></pre>
+    </div>
+  </div>
+
+  <!-- INTERMEDIATE QUESTIONS -->
+
+  <h4 class="mt-4 mb-3">Intermediate Concepts</h4>
+
+  <div class="card mb-4">
+    <div class="card-header fw-bold">6. How Child Routes Work</div>
+    <div class="card-body">
+      <p>Child routes allow nested routing. Parent component must contain its own router-outlet.</p>
+
+      <pre><code class="language-ts">
+{{ '{' }}
+  path: 'admin',
+  component: AdminLayoutComponent,
+  children: [
+    {{ '{' }} path: 'users', component: UserListComponent {{ '}' }}
+  ]
+{{ '}' }}
+      </code></pre>
+    </div>
+  </div>
+
+  <div class="card mb-4">
+    <div class="card-header fw-bold">7. Lazy Loading</div>
+    <div class="card-body">
+      <p>Lazy loading loads feature modules only when the route is visited.</p>
+
+      <pre><code class="language-ts">
+{{ '{' }}
+  path: 'admin',
+  loadChildren: () =>
+    import('./admin/admin.routes').then(m => m.ADMIN_ROUTES)
+{{ '}' }}
+      </code></pre>
+
+    </div>
+  </div>
+
+  <div class="card mb-4">
+    <div class="card-header fw-bold">8. Why pathMatch: 'full'?</div>
+    <div class="card-body">
+      <p>
+        Used to match the full empty path during redirects.
+      </p>
+
+      <pre><code class="language-ts">{{ '{' }} path: '', redirectTo: 'home', pathMatch: 'full' {{ '}' }}</code></pre>
+    </div>
+  </div>
+
+  <!-- ADVANCED / SENIOR QUESTIONS -->
+
+  <h4 class="mt-4 mb-3">Senior Level Concepts</h4>
+
+  <div class="card mb-4">
+    <div class="card-header fw-bold">9. Navigation Lifecycle Events</div>
+    <div class="card-body">
+      <p>Angular triggers a set of events during navigation:</p>
+
+      <ul>
+        <li>NavigationStart</li>
+        <li>RoutesRecognized</li>
+        <li>GuardsCheckStart</li>
+        <li>ResolveStart</li>
+        <li>ResolveEnd</li>
+        <li>NavigationEnd</li>
+        <li>NavigationError</li>
+        <li>NavigationCancel</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card mb-4">
+    <div class="card-header fw-bold">10. What happens when router.navigate() is called?</div>
+    <div class="card-body">
+      <ul>
+        <li>URL is parsed</li>
+        <li>Best route is matched</li>
+        <li>Guards run</li>
+        <li>Resolvers fetch data</li>
+        <li>Component is dynamically created</li>
+        <li>Inserted into router-outlet</li>
+        <li>History API updates URL without reload</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card mb-4">
+    <div class="card-header fw-bold">11. Why route order matters?</div>
+    <div class="card-body">
+      <p>
+        Angular picks the first matching route.  
+        So specific routes must always be defined before dynamic ones.
+      </p>
+    </div>
+  </div>
+
+  <div class="card mb-4">
+    <div class="card-header fw-bold">12. How Angular prevents full page reloads?</div>
+    <div class="card-body">
+      <p>
+        Angular uses the HTML5 History API (pushState) to change URL without sending a request
+        to the server. It handles routing internally and loads components dynamically.
+      </p>
+    </div>
+  </div>
+
+</div>

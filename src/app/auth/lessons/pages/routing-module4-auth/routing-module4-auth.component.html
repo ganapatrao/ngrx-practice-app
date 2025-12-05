@@ -1,0 +1,243 @@
+<div class="container my-4">
+
+  <h2 class="mb-4">Module 4 – Authentication & Authorization in Angular (JWT, Refresh Token, Interceptors)</h2>
+
+  <!-- A1 Authentication vs Authorization -->
+  <div class="card mb-4">
+    <div class="card-header fw-bold">A1. Authentication vs Authorization</div>
+    <div class="card-body">
+      <p><strong>Authentication</strong> answers the question: who are you. It is the login process where the backend verifies user credentials and returns a token.</p>
+      <p><strong>Authorization</strong> answers the question: what are you allowed to do. It uses roles or permissions to decide which routes, APIs, or actions the user can access.</p>
+      <p class="mt-2"><strong>Interview answer:</strong> authentication verifies identity, authorization enforces permissions based on that identity.</p>
+    </div>
+  </div>
+
+  <!-- A2 JWT and Access Token -->
+  <div class="card mb-4">
+    <div class="card-header fw-bold">A2. What is a JWT Access Token</div>
+    <div class="card-body">
+      <p>A JWT is a signed token that the client sends with each request to prove who the user is and what they are allowed to do.</p>
+      <p>It typically contains:</p>
+      <ul>
+        <li>user id</li>
+        <li>email or username</li>
+        <li>role or permissions</li>
+        <li>expiry time</li>
+      </ul>
+      <p>The server validates the signature and expiry before allowing the request.</p>
+      <p class="mt-2"><strong>Rule:</strong> never store sensitive data like passwords inside the JWT because the token payload is visible to the client.</p>
+    </div>
+  </div>
+
+  <!-- A3 Access vs Refresh token -->
+  <div class="card mb-4">
+    <div class="card-header fw-bold">A3. Access Token vs Refresh Token</div>
+    <div class="card-body">
+      <p><strong>Access token:</strong></p>
+      <ul>
+        <li>Short lived (for example 5 to 15 minutes).</li>
+        <li>Sent on every API call in the Authorization header.</li>
+        <li>If stolen, damage is limited due to short expiry.</li>
+      </ul>
+      <p><strong>Refresh token:</strong></p>
+      <ul>
+        <li>Long lived (for example days or weeks).</li>
+        <li>Used to obtain a new access token when it expires.</li>
+        <li>Must be stored in an HttpOnly cookie so JavaScript cannot read it.</li>
+      </ul>
+      <p class="mt-2"><strong>Interview answer:</strong> access token is for frequent authorization, refresh token is for silent re authentication and must be protected more tightly.</p>
+    </div>
+  </div>
+
+  <!-- A4 Expiry Flow -->
+  <div class="card mb-4">
+    <div class="card-header fw-bold">A4. Token Expiry and Refresh Flow</div>
+    <div class="card-body">
+      <ol>
+        <li>User logs in. Backend returns an access token in the response body and a refresh token in an HttpOnly cookie.</li>
+        <li>Angular stores the access token and sends it in the Authorization header on each API request.</li>
+        <li>When the access token expires, the server returns status 401 unauthorized.</li>
+        <li>The HTTP interceptor catches the 401 error and calls the refresh endpoint.</li>
+        <li>The backend validates the refresh token from the cookie and returns a new access token.</li>
+        <li>The interceptor retries the original request with the new access token. The user does not see any error.</li>
+        <li>If the refresh token is also invalid or expired, the app logs the user out and redirects to the login page.</li>
+      </ol>
+      <p class="mt-2"><strong>Key point:</strong> Angular does not refresh tokens automatically by magic. You implement the refresh logic in a custom HTTP interceptor.</p>
+    </div>
+  </div>
+
+  <!-- A5 Storage locations -->
+  <div class="card mb-4">
+    <div class="card-header fw-bold">A5. Where to Store Tokens</div>
+    <div class="card-body">
+      <p>Common options and trade offs:</p>
+      <ul>
+        <li><strong>Access token</strong> can be kept in memory or in local storage. It is short lived and used only for Authorization header.</li>
+        <li><strong>Refresh token</strong> should only be stored in an HttpOnly cookie set by the backend so that JavaScript cannot read it.</li>
+        <li>Never store refresh tokens in local storage or session storage.</li>
+      </ul>
+      <pre><code [innerHTML]="code_token_storage_table"></code></pre>
+    </div>
+  </div>
+
+  <!-- B1 Backend contract -->
+  <div class="card mb-4">
+    <div class="card-header fw-bold">B1. Backend Contract (Login, Refresh, Logout)</div>
+    <div class="card-body">
+      <p>This is the typical backend contract assumed in this module:</p>
+      <pre><code [innerHTML]="code_backend_contract"></code></pre>
+    </div>
+  </div>
+
+  <!-- B2 Models -->
+  <div class="card mb-4">
+    <div class="card-header fw-bold">B2. Models for Auth (LoginRequest, LoginResponse, JwtPayload)</div>
+    <div class="card-body">
+      <pre><code [innerHTML]="code_auth_models"></code></pre>
+    </div>
+  </div>
+
+  <!-- B3 AuthService -->
+  <div class="card mb-4">
+    <div class="card-header fw-bold">B3. AuthService – Login, Token Storage, Decode, Refresh</div>
+    <div class="card-body">
+      <p>The AuthService is responsible for:</p>
+      <ul>
+        <li>Calling the login endpoint.</li>
+        <li>Storing and exposing the access token.</li>
+        <li>Decoding the JWT to get user details and expiry.</li>
+        <li>Refreshing the access token using the refresh endpoint.</li>
+        <li>Logging out and clearing state.</li>
+      </ul>
+      <pre><code [innerHTML]="code_auth_service"></code></pre>
+    </div>
+  </div>
+
+  <!-- B4 Interceptor -->
+  <div class="card mb-4">
+    <div class="card-header fw-bold">B4. AuthInterceptor – Attach Token and Auto Refresh</div>
+    <div class="card-body">
+      <p>The interceptor:</p>
+      <ul>
+        <li>Reads the current access token from AuthService.</li>
+        <li>Attaches it to outgoing requests in the Authorization header.</li>
+        <li>On status 401, tries to refresh the token using the refresh endpoint.</li>
+        <li>If refresh succeeds, retries the original request.</li>
+        <li>If refresh fails, logs out and redirects the user to login.</li>
+      </ul>
+
+      <p class="fw-bold">Interceptor implementation:</p>
+      <pre><code [innerHTML]="code_auth_interceptor"></code></pre>
+
+      <p class="fw-bold mt-3">Registering the interceptor:</p>
+      <pre><code [innerHTML]="code_auth_interceptor_provider"></code></pre>
+    </div>
+  </div>
+
+  <!-- B5 AuthGuard -->
+  <div class="card mb-4">
+    <div class="card-header fw-bold">B5. AuthGuard – Route Protection with Roles</div>
+    <div class="card-body">
+      <p>The guard uses AuthService to:</p>
+      <ul>
+        <li>Check if the user is logged in.</li>
+        <li>Optionally check if the user role is allowed for this route.</li>
+        <li>Redirect to login if the user is not authenticated.</li>
+        <li>Redirect to an unauthorized page if the role is not allowed.</li>
+      </ul>
+
+      <p class="fw-bold">Guard implementation:</p>
+      <pre><code [innerHTML]="code_auth_guard"></code></pre>
+
+      <p class="fw-bold mt-3">Example route using AuthGuard:</p>
+      <pre><code [innerHTML]="code_auth_guard_route"></code></pre>
+    </div>
+  </div>
+
+  <!-- B6 Login component -->
+  <div class="card mb-4">
+    <div class="card-header fw-bold">B6. Login Component – Reactive Form and Login Flow</div>
+    <div class="card-body">
+      <p>The login component:</p>
+      <ul>
+        <li>Uses a reactive form for email and password.</li>
+        <li>Calls AuthService.login on submit.</li>
+        <li>Redirects to the return URL if provided, otherwise to the home route.</li>
+        <li>Displays an error message on failure.</li>
+      </ul>
+
+      <p class="fw-bold">Component TypeScript:</p>
+      <pre><code [innerHTML]="code_login_component_ts"></code></pre>
+
+      <p class="fw-bold mt-3">Component template example:</p>
+      <pre><code [innerHTML]="code_login_component_html"></code></pre>
+    </div>
+  </div>
+
+  <!-- B7 Role based UI -->
+  <div class="card mb-4">
+    <div class="card-header fw-bold">B7. Role Based UI in Templates</div>
+    <div class="card-body">
+      <p>We can use the currentUser stream from AuthService to show or hide UI elements based on the user role.</p>
+      <pre><code [innerHTML]="code_role_based_ui"></code></pre>
+      <p class="mt-2">This pattern is commonly used to show admin only buttons or menus.</p>
+    </div>
+  </div>
+
+  <!-- Interview Q&A -->
+  <div class="card mb-4">
+    <div class="card-header fw-bold">Interview Questions & Answers – Module 4 (Auth & JWT)</div>
+    <div class="card-body">
+
+      <p><strong>Q1. What is the difference between authentication and authorization?</strong></p>
+      <p><strong>Answer:</strong> Authentication identifies the user and is usually implemented as a login process. Authorization controls what the authenticated user is allowed to do, for example which routes, APIs, or features they can access.</p>
+
+      <hr>
+
+      <p><strong>Q2. What is a JWT and why is it used?</strong></p>
+      <p><strong>Answer:</strong> A JWT is a signed token that encodes user identity and claims such as user id, email, role, and expiry. Clients send it with each request in the Authorization header so the server can validate who the user is without storing session state on the server.</p>
+
+      <hr>
+
+      <p><strong>Q3. What is the difference between an access token and a refresh token?</strong></p>
+      <p><strong>Answer:</strong> The access token is short lived and used on every API call for authorization. The refresh token is long lived and is only used to obtain new access tokens. The refresh token should be stored in an HttpOnly cookie so that JavaScript cannot access it.</p>
+
+      <hr>
+
+      <p><strong>Q4. Why should refresh tokens not be stored in local storage?</strong></p>
+      <p><strong>Answer:</strong> Local storage is accessible from JavaScript and vulnerable to cross site scripting attacks. If an attacker can run script, they can read the refresh token and generate new access tokens indefinitely. Keeping refresh tokens in HttpOnly cookies mitigates this risk.</p>
+
+      <hr>
+
+      <p><strong>Q5. How does the token refresh flow work in Angular?</strong></p>
+      <p><strong>Answer:</strong> When a protected API call returns status 401 unauthorized, the HTTP interceptor calls the refresh endpoint. The backend validates the refresh token from the HttpOnly cookie and returns a new access token. The interceptor updates AuthService and retries the original request with the new token. If refresh fails, the app logs the user out.</p>
+
+      <hr>
+
+      <p><strong>Q6. Why is an HTTP interceptor a good place to handle token refresh?</strong></p>
+      <p><strong>Answer:</strong> The interceptor sees all outgoing requests and incoming responses, so it can automatically attach the access token and handle 401 responses in one place. This avoids duplicating token logic in every service and makes the refresh logic centralized and consistent.</p>
+
+      <hr>
+
+      <p><strong>Q7. What should not be stored inside a JWT?</strong></p>
+      <p><strong>Answer:</strong> Sensitive information such as passwords, secrets, and personal data should not be inside a JWT because the token payload is visible on the client. Only non-sensitive claims such as id, email, role, and expiry should be stored.</p>
+
+      <hr>
+
+      <p><strong>Q8. How do you protect Angular routes with roles using JWT?</strong></p>
+      <p><strong>Answer:</strong> The JWT contains a role claim. AuthGuard reads the decoded token from AuthService and checks if the user role matches the allowed roles defined in the route data. If not, it redirects to an unauthorized page.</p>
+
+      <hr>
+
+      <p><strong>Q9. Does Angular automatically refresh JWT tokens?</strong></p>
+      <p><strong>Answer:</strong> No. Angular provides interceptors, but the actual refresh logic must be written by the developer. You implement a refresh call in AuthService and trigger it from an HTTP interceptor when a 401 response is detected.</p>
+
+      <hr>
+
+      <p><strong>Q10. How can you implement a single logout in a JWT based system?</strong></p>
+      <p><strong>Answer:</strong> On logout, the client should remove the access token from storage and call a logout endpoint on the backend. The backend should invalidate or delete the refresh token (for example by clearing the HttpOnly cookie or marking the token as revoked). After that, both access and refresh tokens are no longer usable.</p>
+
+    </div>
+  </div>
+
+</div>

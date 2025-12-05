@@ -93,6 +93,25 @@ loadComponent:()=>import('./auth/lessons/pages/reactive-form-family/reactive-for
 {
     path: 'practice-session/bootstrap-brushup',
     loadComponent: () => import('./auth/lessons/pages/bootstrap-brushup/bootstrap-brushup.component').then(m => m.BootstrapBrushupComponent)
+},
+{
+    path: 'practice-session/routing-module1',
+    loadComponent: () => import('./auth/lessons/pages/routing-module1/routing-module1.component').then(m => m.RoutingModule1Component)
+},
+{
+    path: 'practice-session/routing-module2-router-activatedrouter',
+    loadComponent: () => import('./auth/lessons/pages/routing-module2-router-activatedrouter/routing-module2-router-activatedrouter.component').then(m => m.RoutingModule2RouterActivatedrouterComponent)       
+},{
+    path: 'practice-session/routing-module3-guards',
+    loadComponent: () => import('./auth/lessons/pages/routing-module3-guards/routing-module3-guards.component').then(m => m.RoutingModule3GuardsComponent)  
+}
+,{
+    path: 'practice-session/routing-module4-auth',
+    loadComponent: () => import('./auth/lessons/pages/routing-module4-auth/routing-module4-auth.component').then(m => m.RoutingModule4AuthComponent)
+},
+{
+    path:'practice-session/module5-ssr',
+    loadComponent: () => import('./auth/lessons/pages/routing-module5-ssr/routing-module5-ssr.component').then(m => m.RoutingModule5SSRComponent)       
 }
     
     

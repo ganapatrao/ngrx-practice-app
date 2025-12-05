@@ -1,0 +1,55 @@
+/* Card styling */
+.card {
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid #d6d6d6;
+}
+
+.card-header {
+  background: #0d6efd;
+  color: white;
+  font-size: 1.1rem;
+  padding: 10px 15px;
+}
+
+/* Code block styling */
+pre {
+  background: #f8f9fa;
+  padding: 12px;
+  border-radius: 6px;
+  border: 1px solid #e1e1e1;
+  overflow-x: auto;
+  margin-top: 10px;
+}
+
+code {
+  font-family: Consolas, "Courier New", monospace;
+  font-size: 0.9rem;
+  white-space: pre-wrap;
+  display: block;
+  color: #333;
+}
+
+/* List styling */
+ul {
+  margin-left: 20px;
+}
+
+li {
+  margin-bottom: 6px;
+}
+
+/* Section spacing */
+h2 {
+  color: #333;
+}
+
+.container {
+  max-width: 950px;
+}
+
+/* Optional: shadow for better look */
+.card:hover {
+  box-shadow: 0px 4px 12px rgba(0,0,0,0.08);
+  transition: 0.2s ease;
+}
