@@ -1,0 +1,24 @@
+<div class="container mt-4" *ngIf="topic">
+  <h2 class="fw-bold">{{ topic.category }} - {{ topic.subtopic }}</h2>
+
+  <button class="btn btn-primary mt-3"
+          [routerLink]="['/recorder/topic', topic._id, 'record']">
+    + Add Attempt (Audio/Video)
+  </button>
+
+  <h4 class="mt-4">Attempts</h4>
+
+  <div *ngFor="let a of topic.attempts" class="card p-3 my-3 shadow-sm">
+
+    <p class="text-muted">{{ a.date | date:'medium' }}</p>
+
+    <audio *ngIf="a.fileType === 'audio'" controls [src]="a.fileUrl"></audio>
+
+    <video *ngIf="a.fileType === 'video'" width="300" controls [src]="a.fileUrl"></video>
+
+  </div>
+
+  <div *ngIf="topic.attempts.length === 0" class="alert alert-info mt-3">
+    No attempts yet. Click "Add Attempt".
+  </div>
+</div>

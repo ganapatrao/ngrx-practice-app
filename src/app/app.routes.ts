@@ -113,7 +113,16 @@ loadComponent:()=>import('./auth/lessons/pages/reactive-form-family/reactive-for
     path:'practice-session/module5-ssr',
     loadComponent: () => import('./auth/lessons/pages/routing-module5-ssr/routing-module5-ssr.component').then(m => m.RoutingModule5SSRComponent)       
 }
-    
+,{
+    path:'practice-session/module6-preloading',
+    loadComponent: () => import('./auth/lessons/pages/profiling-performance/profiling-performance.component').then(m => m.ProfilingPerformanceComponent)
+},
+
+{
+  path: 'recorder',
+  loadChildren: () => import('./interview-recorder-ui/recorder/recorder.routes').then(m => m.recorderRoutes)
+}
+,
     
     
 

@@ -1,0 +1,15 @@
+<div class="container mt-3">
+
+  <h3 class="fw-bold mb-3">All Attempts (Feed)</h3>
+
+  <div *ngFor="let a of feed" class="card mb-4 p-3 shadow-sm">
+
+    <h5>{{ a.category }} - {{ a.subtopic }}</h5>
+    <p class="text-muted">{{ a.date | date:'medium' }}</p>
+
+    <audio *ngIf="a.fileType === 'audio'" controls [src]="a.fileUrl"></audio>
+
+    <video *ngIf="a.fileType === 'video'" width="300" controls [src]="a.fileUrl"></video>
+
+  </div>
+</div>

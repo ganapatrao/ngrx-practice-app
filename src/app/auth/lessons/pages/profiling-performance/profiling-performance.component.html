@@ -1,0 +1,18 @@
+<h1>Performance</h1>
+
+ <div class="container">
+
+  <h2>Performance Playground</h2>
+
+  <p><strong>Problem 1:</strong> Big image without lazy loading</p>
+  <img [src]="bigImageUrl" width="600" loading="lazy" />
+
+  <hr />
+
+  <p><strong>Problem 2:</strong> List of 10,000 items without trackBy</p>
+
+  <div *ngFor="let item of items">
+    {{ item.name }} — expensive calc: {{ heavyCalculation(item.id) }}
+  </div>
+
+</div> 
