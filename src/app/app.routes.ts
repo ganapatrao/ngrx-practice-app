@@ -122,6 +122,10 @@ loadComponent:()=>import('./auth/lessons/pages/reactive-form-family/reactive-for
   path: 'recorder',
   loadChildren: () => import('./interview-recorder-ui/recorder/recorder.routes').then(m => m.recorderRoutes)
 }
+,{
+    path: 'angular-module1-revision',
+    loadComponent: () => import('./courses/pages/angular-revision-module1/angular-revision-module1.component').then(m => m.AngularRevisionModule1Component)
+}
 ,
     
     

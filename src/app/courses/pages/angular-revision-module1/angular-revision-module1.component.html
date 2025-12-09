@@ -1,0 +1,309 @@
+<div class="module-container">
+
+  <h1>Module 1 — Basic Angular Topics (Interview Revision)</h1>
+  <p class="sub">Clean • Crisp • Angular &lt;16 vs ≥16 Code • Internal Working • Error-Free</p>
+
+  <!-- 1. WHAT IS ANGULAR -->
+  <section class="topic">
+    <h2>1. What is Angular?</h2>
+
+    <h3>🟢 Answer</h3>
+    <p>Angular is a TypeScript-based, component-driven, opinionated framework for building scalable single-page applications.</p>
+
+    <h3>⚙️ How It Works</h3>
+    <p>Angular compiles templates using Ivy, creates component trees, manages DI, and updates the DOM through change detection.</p>
+
+    <h3>🔧 Angular &lt;16 Example (NgModule)</h3>
+    <pre ngNonBindable>{{`
+@NgModule({
+  declarations: [AppComponent],
+  imports: [BrowserModule],
+  bootstrap: [AppComponent]
+})
+export class AppModule {}
+`&#125;&#125;</pre>
+
+    <h3>🔧 Angular ≥16 Example (Standalone)</h3>
+    <pre ngNonBindable>{{`
+bootstrapApplication(AppComponent, {
+  providers: []
+});
+`&#125;&#125;</pre>
+
+    <h3>🧩 Key Points</h3>
+    <ul>
+      <li>TypeScript first framework</li>
+      <li>Ivy renderer</li>
+      <li>Built-in DI, HTTP, routing, forms</li>
+      <li>Component-driven architecture</li>
+    </ul>
+
+    <h3>❓ Questions</h3>
+    <ul>
+      <li>What is Angular?</li>
+      <li>What are Angular building blocks?</li>
+      <li>Angular vs AngularJS?</li>
+    </ul>
+  </section>
+
+  <!-- 2. ANGULAR VS REACT -->
+  <section class="topic">
+    <h2>2. Angular vs React</h2>
+
+    <h3>🟢 Answer</h3>
+    <p>Angular is a complete framework. React is a UI library relying on external packages.</p>
+
+    <h3>🧩 Key Differences</h3>
+    <table class="compare-table">
+      <tr><th>Feature</th><th>Angular</th><th>React</th></tr>
+      <tr><td>Type</td><td>Framework</td><td>Library</td></tr>
+      <tr><td>Rendering</td><td>Ivy Incremental DOM</td><td>Virtual DOM</td></tr>
+      <tr><td>Routing</td><td>Built-in</td><td>3rd Party</td></tr>
+      <tr><td>DI</td><td>Built-in</td><td>Context/APIs</td></tr>
+      <tr><td>Language</td><td>TS First</td><td>JS/TS optional</td></tr>
+    </table>
+
+    <h3>❓ Questions</h3>
+    <ul>
+      <li>Why choose Angular?</li>
+      <li>Ivy vs Virtual DOM?</li>
+      <li>Which scales better?</li>
+    </ul>
+  </section>
+
+  <!-- 3. COMPONENT -->
+  <section class="topic">
+    <h2>3. Component</h2>
+
+    <h3>🟢 Answer</h3>
+    <p>A component is the smallest UI building block containing template, logic, and styles.</p>
+
+    <h3>⚙️ How It Works</h3>
+    <p>Angular creates the component instance, binds data, runs lifecycle hooks, and updates DOM using change detection.</p>
+
+    <h3>🔧 Angular &lt;16 Example</h3>
+    <pre ngNonBindable>{{`
+@Component({
+  selector: 'app-hello',
+  template: '&lt;h1&gt;Hello \\{\\{name\\}\\}&lt;/h1&gt;'
+})
+export class HelloComponent {}
+`}}</pre>
+
+    <h3>🔧 Angular ≥16 Standalone</h3>
+    <pre ngNonBindable>{{`
+@Component({
+  selector: 'app-hello',
+  standalone: true,
+  template: '&lt;h1&gt;Hello \\{\\{name\\}\\}&lt;/h1&gt;'
+})
+export class HelloComponent {}
+`&#125;&#125;</pre>
+
+    <h3>❓ Questions</h3>
+    <ul>
+      <li>What is a component?</li>
+      <li>How components communicate?</li>
+      <li>What are lifecycle hooks?</li>
+    </ul>
+  </section>
+
+  <!-- 4. MODULES VS STANDALONE -->
+  <section class="topic">
+    <h2>4. Modules vs Standalone Components</h2>
+
+    <h3>🔧 Angular &lt;16 Example</h3>
+    <pre ngNonBindable>{{`
+@NgModule({
+  declarations: [HomeComponent],
+  imports: [CommonModule]
+})
+export class HomeModule {}
+`}}</pre>
+
+    <h3>🔧 Angular ≥16 Example</h3>
+    <pre ngNonBindable>{{`
+@Component({
+  standalone: true,
+  imports: [CommonModule],
+  template: \`...\`
+})
+export class HomeComponent {}
+`&#125;&#125;</pre>
+
+    <h3>❓ Questions</h3>
+    <ul>
+      <li>Why standalone?</li>
+      <li>Do we still need modules?</li>
+    </ul>
+  </section>
+
+  <!-- 5. TEMPLATE SYNTAX -->
+  <section class="topic">
+    <h2>5. Template Syntax (Bindings)</h2>
+
+    <h3>🟢 Answer</h3>
+    <p>Angular supports interpolation, property binding, event binding, and two-way binding.</p>
+
+    <h3>🔧 Signals Example (≥16)</h3>
+<pre ngNonBindable>{{`
+name = signal('');
+
+// HTML escaped so Angular will NOT parse &lt;input&gt;
+&lt;input [value]="name()" (input)="name.set($event.target.value)" /&gt;
+`}}</pre>
+
+
+    <h3>❓ Questions</h3>
+    <ul>
+      <li>Interpolation vs property binding?</li>
+      <li>Why signals?</li>
+    </ul>
+  </section>
+
+  <!-- 6. DIRECTIVES -->
+  <section class="topic">
+    <h2>6. Directives</h2>
+
+    <h3>🟢 Answer</h3>
+    <p>Directives modify DOM behavior. Structural directives modify layout; attribute directives modify appearance.</p>
+
+    <h3>🔧 Structural Example</h3>
+<pre ngNonBindable>{{`
+@Directive({
+  selector: '[highlight]',
+  standalone: true
+})
+export class HighlightDirective {}
+`}}</pre>
+
+
+    <h3>❓ Questions</h3>
+    <ul>
+      <li>Structural vs attribute directives?</li>
+      <li>How ngFor works internally?</li>
+    </ul>
+  </section>
+
+  <!-- 7. SERVICES & DI -->
+  <section class="topic">
+    <h2>7. Services & Dependency Injection</h2>
+
+    <h3>🟢 Answer</h3>
+    <p>Services contain reusable logic. DI provides service instances everywhere needed.</p>
+
+    <h3>🔧 inject() Example (≥16)</h3>
+    <pre ngNonBindable>{{`
+const userService = inject(UserService);
+`}}</pre>
+
+    <h3>❓ Questions</h3>
+    <ul>
+      <li>What is DI?</li>
+      <li>What is providedIn?</li>
+    </ul>
+  </section>
+
+  <!-- 8. PIPES -->
+  <section class="topic">
+    <h2>8. Pipes</h2>
+
+    <h3>🟢 Answer</h3>
+    <p>Pipes format data in templates without modifying the original value.</p>
+
+    <h3>🔧 Example</h3>
+    <pre ngNonBindable>{{`
+{{ price | currency:'INR' }}
+`}}</pre>
+
+    <h3>❓ Questions</h3>
+    <ul>
+      <li>Pure vs impure pipes?</li>
+    </ul>
+  </section>
+
+  <!-- 9. ROUTING -->
+  <section class="topic">
+    <h2>9. Routing (Basics)</h2>
+
+    <h3>🟢 Answer</h3>
+    <p>Routing allows navigation between pages without reloading.</p>
+
+    <h3>🔧 Routing Setup (≥16)</h3>
+    <pre ngNonBindable>{{`
+bootstrapApplication(AppComponent, {
+  providers: [provideRouter(routes)]
+});
+`}}</pre>
+
+    <h3>❓ Questions</h3>
+    <ul>
+      <li>How does router work?</li>
+      <li>What is router-outlet?</li>
+    </ul>
+  </section>
+
+  <!-- 10. FORMS -->
+  <section class="topic">
+    <h2>10. Forms (Basics)</h2>
+
+    <h3>🟢 Answer</h3>
+    <p>Reactive forms are structured, predictable, and scalable compared to template-driven forms.</p>
+
+    <h3>🔧 Reactive Form Example</h3>
+    <pre ngNonBindable>{{`
+form = new FormGroup({
+  name: new FormControl('')
+});
+`}}</pre>
+
+    <h3>❓ Questions</h3>
+    <ul>
+      <li>Template vs reactive forms?</li>
+    </ul>
+  </section>
+
+  <!-- 11. HTTP -->
+  <section class="topic">
+    <h2>11. HTTP Basics</h2>
+
+    <h3>🟢 Answer</h3>
+    <p>HttpClient handles API calls using Observables.</p>
+
+    <h3>🔧 Example</h3>
+    <pre ngNonBindable>{{`
+this.http.get('/api/users').subscribe(res => {
+  console.log(res);
+});
+`}}</pre>
+
+    <h3>❓ Questions</h3>
+    <ul>
+      <li>What is HttpClient?</li>
+      <li>What are interceptors?</li>
+    </ul>
+  </section>
+
+  <!-- 12. LIFECYCLE HOOKS -->
+  <section class="topic">
+    <h2>12. Lifecycle Hooks</h2>
+
+    <h3>🟢 Answer</h3>
+    <p>Lifecycle hooks run at specific moments in a component’s life cycle: creation, rendering, updates, and destruction.</p>
+
+    <h3>🧩 Important Hooks</h3>
+    <ul>
+      <li>ngOnInit</li>
+      <li>ngOnChanges</li>
+      <li>ngAfterViewInit</li>
+      <li>ngOnDestroy</li>
+    </ul>
+
+    <h3>❓ Questions</h3>
+    <ul>
+      <li>Constructor vs ngOnInit?</li>
+      <li>Why do we use ngOnDestroy?</li>
+    </ul>
+  </section>
+
+</div>

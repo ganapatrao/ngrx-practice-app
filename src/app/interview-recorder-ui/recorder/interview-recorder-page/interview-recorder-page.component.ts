@@ -1,83 +1,65 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { InterviewService } from '../recorder/interview.service';
+import { Attempt, Question } from '../models/question.model';
 
-// Simple Interfaces
-interface Attempt {
-  fileType: 'audio' | 'video' | 'screen';
-  fileUrl: string;
-  date: Date;
-}
-
-interface Question {
-  _id: string;
-  topic: string;
-  questionText: string;
-  answerText: string;
-  attempts: Attempt[];
-}
 
 @Component({
   selector: 'app-interview-recorder-page',
   standalone: true,
-  imports: [CommonModule,FormsModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './interview-recorder-page.component.html',
   styleUrl: './interview-recorder-page.component.css'
 })
-export class InterviewRecorderPageComponent {
-  // -----------------------------------------
-  // DUMMY DATA (Just to see UI working)
-  // -----------------------------------------
-  categories: string[] = ['JS', 'Angular', 'Node + Express'];
-  selectedCategory: string | null = 'JS';
+export class InterviewRecorderPageComponent implements OnInit {
 
-  questions: Question[] = [
-    {
-      _id: '1',
-      topic: 'let',
-      questionText: 'What is let?',
-      answerText: 'let is block scoped.',
-      attempts: [
-        {
-          fileType: 'audio',
-          fileUrl: '',
-          date: new Date()
-        }
-      ]
-    },
-    {
-      _id: '2',
-      topic: 'const',
-      questionText: 'Difference between let and const?',
-      answerText: 'const cannot be reassigned.',
-      attempts: []
-    }
-  ];
+  constructor(private service: InterviewService) {}
 
-  // -----------------------------------------
-  // ADD CATEGORY
-  // -----------------------------------------
+  categories: string[] = [];
+  selectedCategory: string | null = null;
+
+  questions: Question[] = [];
+
   newCategoryName = '';
+
+  ngOnInit() {
+    this.loadCategories();
+  }
+
+  loadCategories() {
+    this.service.getCategories().subscribe(res => {
+      this.categories = res;
+
+      if (!this.selectedCategory && res.length > 0) {
+        this.selectedCategory = res[0];
+        this.loadQuestions(res[0]);
+      }
+    });
+  }
 
   addCategory() {
     if (!this.newCategoryName.trim()) return;
 
-    this.categories.push(this.newCategoryName.trim());
-    this.selectedCategory = this.newCategoryName.trim();
-    this.newCategoryName = '';
-    this.questions = []; // reset visible questions
+    this.service.addCategory(this.newCategoryName).subscribe(() => {
+      this.categories.push(this.newCategoryName.trim());
+      this.selectedCategory = this.newCategoryName.trim();
+      this.newCategoryName = '';
+      this.questions = [];
+    });
   }
 
   onSelectCategory(cat: string) {
     this.selectedCategory = cat;
-
-    // In real backend: fetch questions for this category
-    this.questions = []; // for now, empty on category switch
+    this.loadQuestions(cat);
   }
 
-  // -----------------------------------------
-  // ADD NEW QUESTION
-  // -----------------------------------------
+  loadQuestions(category: string) {
+    this.service.getQuestions(category).subscribe((res: Question[]) => {
+      this.questions = res;
+    });
+  }
+
   newQuestion = {
     topic: '',
     questionText: '',
@@ -85,61 +67,61 @@ export class InterviewRecorderPageComponent {
   };
 
   addQuestion() {
+    if (!this.selectedCategory) return;
     if (!this.newQuestion.topic || !this.newQuestion.questionText) return;
 
-    const q: Question = {
-      _id: Math.random().toString(),
+    const payload = {
+      category: this.selectedCategory,
       topic: this.newQuestion.topic,
       questionText: this.newQuestion.questionText,
-      answerText: this.newQuestion.answerText,
-      attempts: []
+      answerText: this.newQuestion.answerText
     };
 
-    this.questions.push(q);
-
-    // Reset form
-    this.newQuestion = { topic: '', questionText: '', answerText: '' };
+    this.service.addQuestion(payload).subscribe(q => {
+      this.questions.push(q);
+      this.newQuestion = { topic: '', questionText: '', answerText: '' };
+    });
   }
 
-  // -----------------------------------------
-  // SAVE ANSWER (Editable textarea)
-  // -----------------------------------------
   saveAnswer(q: Question) {
-    console.log('Answer saved:', q.answerText);
-    // Later: call backend PATCH update
+    this.service.saveAnswer(q._id, q.answerText).subscribe(() => {
+      console.log('Answer saved');
+    });
   }
 
-  // -----------------------------------------
-  // DELETE QUESTION
-  // -----------------------------------------
   deleteQuestion(q: Question) {
     if (!confirm('Delete this question?')) return;
-    this.questions = this.questions.filter(x => x._id !== q._id);
+
+    this.service.deleteQuestion(q._id).subscribe(() => {
+      this.questions = this.questions.filter(x => x._id !== q._id);
+    });
   }
 
-  // -----------------------------------------
-  // ATTEMPTS (Dummy for now)
-  // -----------------------------------------
   deleteAttempt(q: Question, attempt: Attempt) {
-    q.attempts = q.attempts.filter(a => a !== attempt);
+    if (!attempt._id) {
+      q.attempts = q.attempts.filter(a => a !== attempt);
+      return;
+    }
+
+    this.service.deleteAttempt(q._id, attempt._id).subscribe(updated => {
+      q.attempts = updated.attempts;
+    });
   }
 
-  // -----------------------------------------
-  // RECORDING PLACEHOLDERS
-  // -----------------------------------------
   currentPreview: any = null;
 
   startRecording(q: Question, type: 'audio' | 'video' | 'screen') {
-    alert('Recording UI will come here. For now, showing preview block.');
+    alert('Recording UI will be added in Phase 3.');
     this.currentPreview = {
       questionId: q._id,
       type,
-      url: '' // later blob url
+      blob: null,
+      url: null
     };
   }
 
   saveRecording(q: Question) {
-    alert('Saving recording attempt (dummy).');
+    alert('Saving attempt (Phase 3 will handle real upload).');
 
     q.attempts.push({
       fileType: this.currentPreview.type,
