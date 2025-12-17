@@ -1,0 +1,145 @@
+ <div style="padding:20px">
+
+    <h2>🎓 Edutech Custom Directives — Usage Preview</h2>
+
+
+    <!-- TEACHER HIGHLIGHT + RATING COLOR + SHOW MORE + LAZY IMAGE -->
+    <section>
+      <h3>Teacher Card</h3>
+
+      <div
+        [appHighlightTeacher]="teacher.rating"
+        style="border:1px solid #eee;padding:12px;width:320px"
+      >
+        <strong>{{ teacher.name }}</strong>
+        <span  [appRatingColor]="teacher.rating">({{ teacher.rating }})</span>
+
+        <p appShowMore="60">
+          {{ teacher.bio }}
+        </p>
+
+        <img
+          width="280"
+          height="150"
+          [appLazyImage]="teacher.img"
+          style="margin-top:10px"
+        />
+
+        <div style="margin-top:10px">
+          <button [appEnrollButton]="teacher.seats">Enroll</button>
+          <span style="margin-left:8px" [appAvailableSlots]="teacher.seats"></span>
+        </div>
+      </div>
+    </section>
+
+
+    <hr />
+
+
+    <!-- COURSE CARD -->
+    <section>
+      <h3>Course Card</h3>
+
+      <div
+        style="border:1px solid #ddd;padding:12px;width:320px"
+      >
+        <img width="300" height="150"
+             [appLazyImage]="course.img"
+             appHoverPreview="Quick course preview" />
+
+        <h4>{{ course.title }}</h4>
+        <span
+          
+          [appPriceTag]="{ price: course.price, original: course.original }"
+        ></span>
+
+        <p>
+          Duration:
+          <span  [appDurationFormat]="course.duration"></span>
+        </p>
+
+        <p>
+          Mode: {{ course.mode }}
+          <span  [appCourseMode]="course.mode"></span>
+        </p>
+
+        <p>
+          Event:
+          <span appEventTag [appEventTag]="course.event"></span>
+        </p>
+      </div>
+    </section>
+
+
+    <hr />
+
+
+    <!-- AUTO SCROLL REVIEWS -->
+    <section>
+      <h3 id="reviews">Auto Scroll Reviews</h3>
+
+      <div
+        style="display:flex;overflow-x:auto;border:1px solid #eee;padding:10px"
+        [appAutoScrollReview]="2000"
+      >
+        <div
+          *ngFor="let r of reviews"
+          style="min-width:200px;margin-right:12px;border-right:1px solid #ddd;padding-right:10px"
+        >
+          {{ r }}
+        </div>
+      </div>
+
+      <button appScrollToSection="reviews">Scroll to Reviews</button>
+    </section>
+
+
+    <hr />
+
+
+    <!-- COUNTDOWN -->
+    <section>
+      <h3>Countdown to Live Class</h3>
+      <div
+        appCountdown
+        [appCountdown]="liveClassTime"
+        style="font-size:20px;font-weight:bold;color:#d9534f"
+      ></div>
+    </section>
+
+
+    <hr />
+
+
+    <!-- PERMISSION DIRECTIVE -->
+    <section>
+      <h3>Permission Directive</h3>
+
+      <p>Current Role is hard-coded in window.__MOCK_ROLE__</p>
+
+      <button [appPermission]="['ADMIN']">Admin Only Button</button>
+      <button [appPermission]="['TEACHER','ADMIN']">Teacher or Admin Button</button>
+      <button [appPermission]="['STUDENT']">Student Button</button>
+    </section>
+
+    <hr />
+
+
+    <!-- INFINITE SCROLL -->
+    <section>
+      <h3>Infinite Scroll Example</h3>
+
+      <div *ngFor="let item of items" style="padding:6px;border-bottom:1px solid #ccc">
+        {{ item }}
+      </div>
+
+      <div
+        
+        [appInfiniteScroll]="loadMore"
+        style="height:40px;background:#f0f0f0;text-align:center;padding-top:10px;margin-top:10px"
+      >
+        Load more...
+      </div>
+    </section>
+
+  </div>

@@ -1,0 +1,42 @@
+.slider img {
+  width: 100px;
+  margin-right: 5px;
+}
+
+.zoom-img {
+  width: 200px;
+  margin-top: 20px;
+}
+
+.sidebar {
+  background: #f4f4f4;
+  padding: 10px;
+  margin: 20px 0;
+}
+
+.reviews {
+  background: #dfffdc;
+  padding: 10px;
+  margin: 20px 0;
+}
+
+.comparison {
+  display: flex;
+  gap: 20px;
+  padding: 10px;
+}
+
+.header {
+  background: #eee;
+  font-weight: bold;
+}
+
+.body {
+  background: #fff2d1;
+}
+
+.infinite-anchor {
+  height: 40px;
+  background: #e8f0ff;
+  text-align: center;
+}
