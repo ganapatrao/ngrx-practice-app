@@ -128,9 +128,13 @@ loadComponent:()=>import('./auth/lessons/pages/reactive-form-family/reactive-for
 },{
     path: 'angular-ng-afterviewinit',
     loadComponent: () => import('./auth/lessons/pages/after-view-init-usecases/after-view-init-usecases.component').then(m => m.AfterViewInitUsecasesComponent)
-}
-,
+},
+{
+    path: 'practice-session/employee-management',
+    loadComponent: () => import('./auth/lessons/pages/employee/employee.component').then(m => m.EmployeeComponent)
+},
     
-    
+
+
 
 ];
